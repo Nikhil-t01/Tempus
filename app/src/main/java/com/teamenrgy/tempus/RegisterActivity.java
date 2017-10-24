@@ -63,6 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText etName = (EditText) findViewById(R.id.etName);
         final EditText etPasswordC = (EditText) findViewById(R.id.etPasswordC);
         final TextView final_courses = (TextView) findViewById(R.id.final_courses);
+        final TextView pEvents = (TextView) findViewById(R.id.pEvents);
         final Button bRegister = (Button) findViewById(R.id.bRegister);
         final Button bCourse = (Button) findViewById(R.id.course_button);
 
@@ -80,17 +81,32 @@ public class RegisterActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             int courseid = jsonResponse.getInt("courseid");
-                            String cid = "";
-                            if(1<= courseid && courseid <10){
-                                cid = "00"+courseid;
-                            }
-                            else if (9<courseid && courseid<100){
-                                cid = "0"+courseid;
+                            if(courseid!=0) {
+                                String cid = "";
+                                if (1 <= courseid && courseid < 10) {
+                                    cid = "00" + courseid;
+                                } else if (9 < courseid && courseid < 100) {
+                                    cid = "0" + courseid;
+                                } else {
+                                    cid = "" + courseid;
+                                }
+
+                                for (int i = 3; i <= temp_1.length(); i += 3) {
+                                    String c = temp_1.substring(i - 3, i);
+                                    if (c.equals(cid)) {
+                                        Toast.makeText(getBaseContext(), "You're already registered for this course", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                }
+
+                                final_courses.setText(temp_1 + cid);
+                                String course_events = jsonResponse.getString("pEvents");
+                                pEvents.setText(pEvents.getText().toString() + course_events.substring(4));
+                                Toast.makeText(getBaseContext(), "Course Added", Toast.LENGTH_SHORT).show();
                             }
                             else {
-                                cid = ""+ courseid;
+                                Toast.makeText(getBaseContext(), "Course doesn't exist in the database", Toast.LENGTH_SHORT).show();
                             }
-                            final_courses.setText(temp_1 + cid);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -119,42 +135,58 @@ public class RegisterActivity extends AppCompatActivity {
                 Response.Listener<String> deptListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        dummy.setText(response);
-                    }
-                };
-
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-
-                    @Override
-                    public void onResponse(String response) {
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
+                            String dept_id = jsonResponse.getString("dept_id");
+                            String dept_events = jsonResponse.getString("dept_events");
+                            dummy.setText(dept_id);
+                            pEvents.setText(pEvents.getText().toString() + dept_events.substring(4));
 
-                            if(success && passwordC.equals(Password)) {
-                                int dept_id = Integer.parseInt(dummy.getText().toString());
-                                Intent intent2 = new Intent(RegisterActivity.this, Homepage.class);
-                                intent2.putExtra("name", name);
-                                intent2.putExtra("ldap", ldap);
-                                intent2.putExtra("courses", courses);
-                                intent2.putExtra("dept_id", dept_id);
-                                intent2.putExtra("dept", dept);
-                                RegisterActivity.this.startActivity(intent2);
-                            }
-                            else {
-                                final Intent intent3 = new Intent(RegisterActivity.this, LoginActivity.class);
-                                DialogInterface.OnClickListener temp = new DialogInterface.OnClickListener(){
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        RegisterActivity.this.startActivity(intent3);
+                            Response.Listener<String> responseListener = new Response.Listener<String>() {
+
+                                @Override
+                                public void onResponse(String response) {
+                                    try {
+                                        JSONObject jsonResponse = new JSONObject(response);
+                                        boolean success = jsonResponse.getBoolean("success");
+
+                                        if(success && passwordC.equals(Password)) {
+                                            int dept_id = Integer.parseInt(dummy.getText().toString());
+                                            Intent intent2 = new Intent(RegisterActivity.this, Homepage.class);
+                                            intent2.putExtra("name", name);
+                                            intent2.putExtra("ldap", ldap);
+                                            intent2.putExtra("courses", courses);
+                                            intent2.putExtra("dept_id", dept_id);
+                                            intent2.putExtra("dept", dept);
+                                            intent2.putExtra("events", "0000");
+                                            intent2.putExtra("pending_events", pEvents.getText().toString());
+                                            RegisterActivity.this.startActivity(intent2);
+                                        }
+                                        else {
+                                            final Intent intent3 = new Intent(RegisterActivity.this, LoginActivity.class);
+                                            DialogInterface.OnClickListener temp = new DialogInterface.OnClickListener(){
+                                                @Override
+                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                    RegisterActivity.this.startActivity(intent3);
+                                                }
+                                            };
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                            builder.setMessage("Registration Failed")
+                                                    .setNegativeButton("Retry", temp)
+                                                    .create()
+                                                    .show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
                                     }
-                                };
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage("Registration Failed")
-                                        .setNegativeButton("Retry", temp)
-                                        .create()
-                                        .show();
-                            }
+                                }
+                            };
+
+                            Toast.makeText(getBaseContext(), "MyToast of pEvents: "+pEvents.getText().toString(), Toast.LENGTH_SHORT).show();
+                            RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+                            RegisterRequest registerRequest = new RegisterRequest(name, ldap, courses, Password, passwordC, dept, pEvents.getText().toString(), responseListener);
+                            queue.add(registerRequest);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -162,10 +194,8 @@ public class RegisterActivity extends AppCompatActivity {
                 };
 
                 DeptIDRequest deptIDRequest = new DeptIDRequest(dept, deptListener);
-                RegisterRequest registerRequest = new RegisterRequest(name, ldap, courses, Password, passwordC, dept,    responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(deptIDRequest);
-                queue.add(registerRequest);
             }
         });
     }

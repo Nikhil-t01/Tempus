@@ -62,11 +62,15 @@ public class LoginActivity extends AppCompatActivity {
                                 String username = jsonObject.getString("ldap");
                                 String courses = jsonObject.getString("courses");
                                 String dept = jsonObject.getString("dept");
+                                String events = jsonObject.getString("events");
+                                String pending_events = jsonObject.getString("pending_events");
                                 Intent intent= new Intent(LoginActivity.this, Homepage.class);
                                 intent.putExtra("name", name);
                                 intent.putExtra("ldap", username);
                                 intent.putExtra("courses", courses);
                                 intent.putExtra("dept", dept);
+                                intent.putExtra("events", events);
+                                intent.putExtra("pending_events", pending_events);
                               /*  transitionToast.Toast.makeText(this, "loading", Toast.LENGTH_LONG);
                                 transitionToast.show();*/
                                 LoginActivity.this.startActivity(intent);

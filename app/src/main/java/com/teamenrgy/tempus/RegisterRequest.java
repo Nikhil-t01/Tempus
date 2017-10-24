@@ -30,7 +30,7 @@ public class RegisterRequest extends StringRequest {
      * @param dept
      * @param listener
      */
-    public RegisterRequest(String name, String ldap, String courses, String password, String passwordC, String dept, Response.Listener<String> listener) {
+    public RegisterRequest(String name, String ldap, String courses, String password, String passwordC, String dept,String pending_events, Response.Listener<String> listener) {
         super(Method.POST, REGISTER_REQUEST_URL, listener, null);
         params = new HashMap<>();
         params.put("name", name);
@@ -39,6 +39,7 @@ public class RegisterRequest extends StringRequest {
         params.put("courses", courses);
         params.put("passwordC", passwordC);
         params.put("dept", dept);
+        params.put("pending_events", pending_events);
     }
 
     @Override

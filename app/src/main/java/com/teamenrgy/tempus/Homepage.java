@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -31,8 +32,12 @@ public class Homepage extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
         Intent intent = getIntent();
         final String name = intent.getStringExtra("name");
+        final String ldap = intent.getStringExtra("ldap");
         final String dept = intent.getStringExtra("dept");
-
+        final String courses = intent.getStringExtra("courses");
+        final String events = intent.getStringExtra("events");
+        final String pending_events = intent.getStringExtra("pending_events");
+        Toast.makeText(getBaseContext(), "Events: "+events + " Pending Events:" + pending_events, Toast.LENGTH_LONG).show();
         final TextView dummy = (TextView) findViewById(R.id.dummydept);
 
         Response.Listener<String> deptListener = new Response.Listener<String>() {
@@ -53,9 +58,9 @@ public class Homepage extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(Homepage.this);
         queue.add(deptIDRequest);
 
-        final String courses = intent.getStringExtra("courses");
+
 //        Toast.makeText(getBaseContext(), courses, Toast.LENGTH_SHORT).show();
-        final String ldap = intent.getStringExtra("ldap");
+
         Typeface font_welcome = Typeface.createFromAsset(getAssets(), "fonts/IndieFlower.ttf");
         TextView welcomeText = (TextView) findViewById(R.id.welcome);
         welcomeText.setTypeface(font_welcome);
@@ -98,6 +103,8 @@ public class Homepage extends AppCompatActivity {
                 intent.putExtra("ldap",ldap);
                 intent.putExtra("name", name);
                 intent.putExtra("dept", dept);
+                intent.putExtra("events", events);
+                intent.putExtra("pending_events", pending_events);
                 //Toast.makeText(getBaseContext(), courses, Toast.LENGTH_SHORT).show();
                 Homepage.this.startActivity(intent);
             }
@@ -120,6 +127,20 @@ public class Homepage extends AppCompatActivity {
                 //Toast.makeText(getBaseContext(), dept_temp, Toast.LENGTH_SHORT).show();
                 intent.putExtra("cat_name", dept_temp);
                 intent.putExtra("cat_title", "Department");
+                Homepage.this.startActivity(intent);
+            }
+        });
+
+        TextView events_tv = (TextView) findViewById(R.id.quizzes);
+        events_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setContentView(R.layout.progess_bar);
+                Intent intent = new Intent(Homepage.this, EventsActivity.class);
+                intent.putExtra("name", name);
+                intent.putExtra("ldap", ldap);
+                intent.putExtra("events", events);
+                intent.putExtra("pending_events", pending_events);
                 Homepage.this.startActivity(intent);
             }
         });

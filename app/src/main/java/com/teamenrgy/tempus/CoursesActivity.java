@@ -39,7 +39,7 @@ public class CoursesActivity extends AppCompatActivity {
         for(int i = 6; i<=l; i=i+3) {
             courses_list.add(new Course(courses.substring(i-3, i)));
         }
-            //huehuehue
+
         CourseAdapter wordAdapter =
                 new CourseAdapter(this, courses_list);
         ListView listView = (ListView) findViewById(R.id.list);
