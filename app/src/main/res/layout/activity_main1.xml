@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.teamenrgy.tempus.MainActivity1"
+    android:background="@drawable/bg_1">
+    <!--android:background="#D3D3D3"-->
+
+    <com.teamenrgy.tempus.TypeWriter
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tempus"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:textSize="70sp"
+        android:textColor="#0288FF"
+        />
+
+    <com.teamenrgy.tempus.TypeWriter
+        android:id="@+id/quote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Insert Quote Here"
+        android:gravity="center"
+        android:layout_below="@+id/title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="60dp"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        />
+
+    <Button
+        android:id="@+id/getstart"
+        android:onClick="start_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="GET STARTED"
+        android:background="#01579B"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        />
+
+</RelativeLayout>

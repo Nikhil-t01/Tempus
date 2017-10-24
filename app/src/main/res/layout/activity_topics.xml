@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.teamenrgy.tempus.TopicsActivity"
+    android:orientation="vertical"
+    android:background="#F0F0FF"
+    >
+
+    <TextView
+        android:id="@+id/topics_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Insert Title Here"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:background="#404040"
+        android:textColor="#FFFFFF"
+        />
+
+    <ListView
+        android:id="@+id/topics_list"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="60dp"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
+        />
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@id/topics_list"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        >
+        <EditText
+            android:hint="Start Topic!"
+            android:maxLines="1"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:id="@+id/topic_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@drawable/rounded_rectangle"
+            />
+        <ImageView
+            android:id="@+id/start_topic"
+            android:src="@drawable/send_icon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,172 @@
+package com.teamenrgy.tempus;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+public class RegisterActivity extends AppCompatActivity {
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setContentView(R.layout.activity_register);
+
+        final TextView spinner_dept_dummy = findViewById(R.id.dummydept2);
+
+        Spinner Departments = findViewById(R.id.Depts);
+        final String[] Depts = { "Change Department", "Computer Science and Engineering",
+                "Electrical Engineering",
+                "Mechanical Engineering",
+                "Chemical Engineering",
+                "Aerospace Engineering",
+                "Engineering Physics",
+                "Civil Engineering",
+        };
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, Depts);
+        Departments.setAdapter(adapter);
+
+        Departments.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinner_dept_dummy.setText(Depts[i]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                spinner_dept_dummy.setText("");
+            }
+        });
+
+        Intent intent = getIntent();
+        final String ldap = intent.getStringExtra("ldap");
+        final String Password = intent.getStringExtra("password");
+
+        final EditText etCourses = (EditText) findViewById(R.id.etCourses);
+        final EditText etName = (EditText) findViewById(R.id.etName);
+        final EditText etPasswordC = (EditText) findViewById(R.id.etPasswordC);
+        final TextView final_courses = (TextView) findViewById(R.id.final_courses);
+        final Button bRegister = (Button) findViewById(R.id.bRegister);
+        final Button bCourse = (Button) findViewById(R.id.course_button);
+
+        bCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String temp_c = etCourses.getText().toString();
+                final String temp_1 = final_courses.getText().toString();
+                etCourses.setText("");
+
+                Response.Listener<String> Listener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            int courseid = jsonResponse.getInt("courseid");
+                            String cid = "";
+                            if(1<= courseid && courseid <10){
+                                cid = "00"+courseid;
+                            }
+                            else if (9<courseid && courseid<100){
+                                cid = "0"+courseid;
+                            }
+                            else {
+                                cid = ""+ courseid;
+                            }
+                            final_courses.setText(temp_1 + cid);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                CourseRequest courseRequest = new CourseRequest(temp_c,  Listener);
+                RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+                queue.add(courseRequest);
+                Toast.makeText(getBaseContext(), "Register Ho Gaya Course!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        bRegister.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                setContentView(R.layout.progess_bar);
+
+                final String name = etName.getText().toString();
+                final String passwordC = etPasswordC.getText().toString();
+                //final String dept = etDept.getText().toString();
+                final String dept = spinner_dept_dummy.getText().toString();
+                final String courses = final_courses.getText().toString();
+                final TextView dummy = (TextView) findViewById(R.id.dummydept);
+
+                Response.Listener<String> deptListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        dummy.setText(response);
+                    }
+                };
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean success = jsonResponse.getBoolean("success");
+
+                            if(success && passwordC.equals(Password)) {
+                                int dept_id = Integer.parseInt(dummy.getText().toString());
+                                Intent intent2 = new Intent(RegisterActivity.this, Homepage.class);
+                                intent2.putExtra("name", name);
+                                intent2.putExtra("ldap", ldap);
+                                intent2.putExtra("courses", courses);
+                                intent2.putExtra("dept_id", dept_id);
+                                intent2.putExtra("dept", dept);
+                                RegisterActivity.this.startActivity(intent2);
+                            }
+                            else {
+                                final Intent intent3 = new Intent(RegisterActivity.this, LoginActivity.class);
+                                DialogInterface.OnClickListener temp = new DialogInterface.OnClickListener(){
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        RegisterActivity.this.startActivity(intent3);
+                                    }
+                                };
+                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                builder.setMessage("Registration Failed")
+                                        .setNegativeButton("Retry", temp)
+                                        .create()
+                                        .show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                DeptIDRequest deptIDRequest = new DeptIDRequest(dept, deptListener);
+                RegisterRequest registerRequest = new RegisterRequest(name, ldap, courses, Password, passwordC, dept,    responseListener);
+                RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+                queue.add(deptIDRequest);
+                queue.add(registerRequest);
+            }
+        });
+    }
+}

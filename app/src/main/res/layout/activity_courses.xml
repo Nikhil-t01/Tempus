@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.teamenrgy.tempus.CoursesActivity"
+    android:orientation="vertical"
+    android:background="@drawable/bg_9"
+    >
+
+    <TextView
+        android:id="@+id/courses_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Courses"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:background="#404040"
+        android:textColor="#FFFFFF"
+        />
+
+    <ListView
+        android:background="#77000000"
+        android:id="@+id/list"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        >
+
+    </ListView>
+
+</RelativeLayout>
+

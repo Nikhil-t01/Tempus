@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.teamenrgy.tempus.ForumActivity"
+    android:orientation="vertical"
+    android:background="@drawable/bg_8"
+    >
+
+    <TextView
+        android:id="@+id/forumTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Insert Title Here"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:background="#404040"
+        android:textColor="#FFFFFF"
+        />
+
+    <ListView
+        android:padding="10dp"
+        android:id="@+id/forum_list"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="60dp"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
+
+        />
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@id/forum_list"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        >
+        <EditText
+            android:hint="Send Message!"
+            android:maxLines="1"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:id="@+id/etMessage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@drawable/rounded_rectangle"
+            />
+        <ImageView
+            android:id="@+id/forumPost"
+            android:src="@drawable/send_icon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</RelativeLayout>
