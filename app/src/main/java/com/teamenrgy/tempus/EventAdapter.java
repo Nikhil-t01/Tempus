@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,6 +35,19 @@ public class EventAdapter extends ArrayAdapter<Event> {
         final TextView event_id = listItemView.findViewById(R.id.event_id);
         assert currEvent != null;
         event_id.setText(currEvent.getId());
+
+        Button Accept = listItemView.findViewById(R.id.accept);
+        Button Decline = listItemView.findViewById(R.id.decline);
+
+        Accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                
+            }
+        });
+
+
         return listItemView;
     }
 }

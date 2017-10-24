@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -26,12 +24,17 @@ public class PendingEventsActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pending_events);
+
         Intent intent = getIntent();
         final String events = intent.getStringExtra("events");
         final String pending_events = intent.getStringExtra("pending_events");
         final String ldap = intent.getStringExtra("ldap");
+
+
         Toast.makeText(getBaseContext(), "Pending Events: "+pending_events, Toast.LENGTH_SHORT).show();
         Toast.makeText(getBaseContext(), "Events: "+events, Toast.LENGTH_SHORT).show();
+
+
         int len = pending_events.length();
         final ArrayList<Event> pEvents_list = new ArrayList<>();
 
