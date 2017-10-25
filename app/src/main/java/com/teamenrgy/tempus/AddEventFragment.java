@@ -11,14 +11,23 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
 public class AddEventFragment extends Fragment {
 
-    Button btnDatePicker, btnStartTimePicker, btnEndTimePicker;
-    EditText txtDate, txtStartTime, txtEndTime;
+    Button btnDatePicker, btnStartTimePicker, btnEndTimePicker, btnAddEvent;
+    EditText txtDate, txtStartTime, txtEndTime, Category, Description;
     private int mYear, mMonth, mDay, mHour, mMinute;
+    String name, events, pending_events, event_id;
 
     LayoutInflater inflater;
     ViewGroup container;
@@ -35,9 +44,12 @@ public class AddEventFragment extends Fragment {
         btnDatePicker = (Button) v.findViewById(R.id.btn_date);
         btnStartTimePicker = (Button) v.findViewById(R.id.btn_stime);
         btnEndTimePicker = (Button) v.findViewById(R.id.btn_etime);
+        btnAddEvent = (Button) v.findViewById(R.id.btnAddEvent);
         txtDate = (EditText) v.findViewById(R.id.in_date);
         txtStartTime = (EditText) v.findViewById(R.id.in_stime);
         txtEndTime = (EditText) v.findViewById(R.id.in_etime);
+        Category = (EditText) v.findViewById(R.id.category);
+        Description = (EditText) v.findViewById(R.id.description);
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,8 +70,8 @@ public class AddEventFragment extends Fragment {
                                     dd = "0" + dd;
                                 if(monthOfYear<9)
                                     mm = "0" + mm;
-
-                                txtDate.setText(year + "-" + mm + "-" + dd);
+                                Toast.makeText(getContext(),year + "-" + mm + "-" + dd + " ", Toast.LENGTH_SHORT).show();
+                                txtDate.setText(year + "-" + mm + "-" + dd + " ");
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -69,7 +81,6 @@ public class AddEventFragment extends Fragment {
         btnStartTimePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Get Current Time
                 final Calendar c = Calendar.getInstance();
                 mHour = c.get(Calendar.HOUR_OF_DAY);
                 mMinute = c.get(Calendar.MINUTE);
@@ -95,7 +106,6 @@ public class AddEventFragment extends Fragment {
         btnEndTimePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Get Current Time
                 final Calendar c = Calendar.getInstance();
                 mHour = c.get(Calendar.HOUR_OF_DAY);
                 mMinute = c.get(Calendar.MINUTE);
@@ -116,6 +126,74 @@ public class AddEventFragment extends Fragment {
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
+            }
+        });
+
+        btnAddEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String cat_name = Category.getText().toString();
+                Response.Listener<String> addEventListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            String id = jsonResponse.getString("id");
+                            int len = 4-id.length();
+                            for(int i=0;i<len;i++)
+                                id = "0"+id;
+                            events += id;
+                            event_id = id;
+                            Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                            if(cat_name.length() == 5){
+                                Toast.makeText(getContext(), "Course: "+cat_name, Toast.LENGTH_SHORT).show();
+                                Response.Listener<String> courseEventListener = new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        try {
+                                            JSONObject jsonResponse = new JSONObject(response);
+                                            Toast.makeText(getContext(), event_id, Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), jsonResponse.getString("cid"), Toast.LENGTH_SHORT).show();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                };
+
+                                CourseEventRequest courseEventRequest = new CourseEventRequest(cat_name, event_id, courseEventListener);
+                                RequestQueue queue = Volley.newRequestQueue(getActivity());
+                                queue.add(courseEventRequest);
+                            }
+                            else{
+                                Toast.makeText(getContext(), "Dept: "+cat_name, Toast.LENGTH_SHORT).show();
+                                Response.Listener<String> deptEventListener = new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                    }
+                                };
+
+                                DeptEventRequest deptEventRequest = new DeptEventRequest(cat_name, event_id, deptEventListener);
+                                RequestQueue queue = Volley.newRequestQueue(getActivity());
+                                queue.add(deptEventRequest);
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(getContext(), "Fail", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                AddEventRequest addEventRequest = new AddEventRequest(
+                        cat_name,
+                        Description.getText().toString(),
+                        name,
+                        txtDate.getText().toString() + txtStartTime.getText().toString(),
+                        txtDate.getText().toString() + txtEndTime.getText().toString(),
+                        addEventListener);
+                RequestQueue queue = Volley.newRequestQueue(getActivity());
+                queue.add(addEventRequest);
+
+
             }
         });
 

@@ -27,7 +27,7 @@ public class MyEventsFragment extends Fragment {
         View v = inflater.inflate(R.layout.activity_my_events, container, false);
 
         EventsActivity eventsActivity = (EventsActivity) getActivity();
-        
+
 
         events = ((TextView) getActivity().findViewById(R.id.events)).getText().toString();
         pending_events = ((TextView) getActivity().findViewById(R.id.pending_events)).getText().toString();
@@ -41,7 +41,7 @@ public class MyEventsFragment extends Fragment {
             events_list.add(temp);
         }
 
-        EventAdapter eventAdapter = new EventAdapter(getActivity(), events_list, events, pending_events);
+        AllEventsAdapter eventAdapter = new AllEventsAdapter(getActivity(), events_list, events, pending_events);
         ListView listView = v.findViewById(R.id.list);
         listView.setAdapter(eventAdapter);
 

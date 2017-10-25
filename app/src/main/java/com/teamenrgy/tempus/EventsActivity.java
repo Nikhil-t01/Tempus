@@ -54,6 +54,8 @@ public class EventsActivity extends FragmentActivity {
             super(fm);
         }
 
+        private String tabTitles[] = new String[]{"My Events", "Pending Events", "Add Event"};
+
         @Override
         public Fragment getItem(int pos) {
             switch(pos) {
@@ -67,6 +69,12 @@ public class EventsActivity extends FragmentActivity {
         @Override
         public int getCount() {
             return 3;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+
+            return tabTitles[position];
         }
     }
 

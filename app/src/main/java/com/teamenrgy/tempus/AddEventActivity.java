@@ -1,6 +1,5 @@
 package com.teamenrgy.tempus;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -23,10 +22,6 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
-import static com.teamenrgy.tempus.R.id.btnAddEvent;
-import static com.teamenrgy.tempus.R.id.topic_name;
-import static com.teamenrgy.tempus.R.id.topics_list;
-
 /**
  * Created by Rajat Rathi on 20-10-2017.
  */
@@ -36,17 +31,19 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
     Button btnDatePicker, btnStartTimePicker, btnEndTimePicker, btnAddEvent;
     EditText txtDate, txtStartTime, txtEndTime, Category, Description;
     private int mYear, mMonth, mDay, mHour, mMinute;
-    String name, events, pending_events;
+    String name, events, pending_events, event_id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
         Toast.makeText(getBaseContext(), "Add Event!", Toast.LENGTH_SHORT).show();
+
         Intent intent = getIntent();
         events = intent.getStringExtra("events");
         pending_events = intent.getStringExtra("pending_events");
         name = intent.getStringExtra("name");
+
         btnDatePicker = (Button) findViewById(R.id.btn_date);
         btnStartTimePicker = (Button) findViewById(R.id.btn_stime);
         btnEndTimePicker = (Button) findViewById(R.id.btn_etime);
@@ -56,6 +53,7 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
         txtEndTime = (EditText) findViewById(R.id.in_etime);
         Category = (EditText) findViewById(R.id.category);
         Description = (EditText) findViewById(R.id.description);
+
         btnDatePicker.setOnClickListener(this);
         btnStartTimePicker.setOnClickListener(this);
         btnEndTimePicker.setOnClickListener(this);
@@ -89,6 +87,7 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
         }
+
         if (v == btnStartTimePicker) {
             // Get Current Time
             final Calendar c = Calendar.getInstance();
@@ -135,7 +134,9 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
                     }, mHour, mMinute, false);
             timePickerDialog.show();
         }
+
         if (v == btnAddEvent) {
+            final String cat_name = Category.getText().toString();
             Response.Listener<String> addEventListener = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -146,11 +147,39 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
                         for(int i=0;i<len;i++)
                             id = "0"+id;
                         events += id;
-                        Intent intent = new Intent(AddEventActivity.this, EventsActivity.class);
-                        intent.putExtra("events", events);
-                        intent.putExtra("pending_events", pending_events);
-                        AddEventActivity.this.startActivity(intent);
+                        event_id = id;
                         Toast.makeText(getBaseContext(), "Success", Toast.LENGTH_SHORT).show();
+                        if(cat_name.length() == 5){
+                            Toast.makeText(getBaseContext(), "Course: "+cat_name, Toast.LENGTH_SHORT).show();
+                            Response.Listener<String> courseEventListener = new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    try {
+                                        JSONObject jsonResponse = new JSONObject(response);
+                                        Toast.makeText(getBaseContext(), event_id, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getBaseContext(), jsonResponse.getString("cid"), Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            };
+
+                            CourseEventRequest courseEventRequest = new CourseEventRequest(cat_name, event_id, courseEventListener);
+                            RequestQueue queue = Volley.newRequestQueue(AddEventActivity.this);
+                            queue.add(courseEventRequest);
+                        }
+                        else{
+                            Toast.makeText(getBaseContext(), "Dept: "+cat_name, Toast.LENGTH_SHORT).show();
+                            Response.Listener<String> deptEventListener = new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                }
+                            };
+
+                            DeptEventRequest deptEventRequest = new DeptEventRequest(cat_name, event_id, deptEventListener);
+                            RequestQueue queue = Volley.newRequestQueue(AddEventActivity.this);
+                            queue.add(deptEventRequest);
+                        }
                     } catch (JSONException e) {
                         Toast.makeText(getBaseContext(), "Fail", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
@@ -159,7 +188,7 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
             };
 
             AddEventRequest addEventRequest = new AddEventRequest(
-                    Category.getText().toString(),
+                    cat_name,
                     Description.getText().toString(),
                     name,
                     txtDate.getText().toString() + txtStartTime.getText().toString(),
@@ -167,7 +196,12 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
                     addEventListener);
             RequestQueue queue = Volley.newRequestQueue(AddEventActivity.this);
             queue.add(addEventRequest);
+
+            Intent intent = new Intent(AddEventActivity.this, EventsActivity.class);
+            intent.putExtra("events", events);
+            intent.putExtra("pending_events", pending_events);
+            intent.putExtra("name", name);
+            AddEventActivity.this.startActivity(intent);
         }
     }
 }
-

@@ -268,13 +268,13 @@
                 fab:fab_size="mini"
                 />
 
-            <com.github.clans.fab.FloatingActionButton
+            <!--<com.github.clans.fab.FloatingActionButton
                 android:id="@+id/material_design_floating_action_menu_item3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_add_black_24dp"
                 fab:fab_label="Add Event"
-                fab:fab_size="mini" />
+                fab:fab_size="mini" />-->
         </com.github.clans.fab.FloatingActionMenu>
     </RelativeLayout>
 

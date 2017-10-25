@@ -50,7 +50,7 @@ public class ForumActivity extends AppCompatActivity {
                     int count = jsonResponse.getInt("count");
 
                     for(int i = 0; i < count; i++) {
-                        messages_list.add(new Message(jsonResponse.getString("message"+i), jsonResponse.getString("ldap"+i), "date")); // Replace LDAP by name
+                        messages_list.add(new Message(jsonResponse.getString("message"+i), jsonResponse.getString("ldap"+i), jsonResponse.getString("date"+i))); // Replace LDAP by name
                     }
                     listView.setAdapter(messageAdapter);
                 } catch (JSONException e) {

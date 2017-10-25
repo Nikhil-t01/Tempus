@@ -17,9 +17,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Homepage extends AppCompatActivity {
 
@@ -91,7 +89,7 @@ public class Homepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setContentView(R.layout.progess_bar);
-                Intent intent = new Intent(Homepage.this, TimeTableActivity.class);
+                Intent intent = new Intent(Homepage.this, TableBaseActivity.class);
                 intent.putExtra("courses", courses);
                 //Toast.makeText(getBaseContext(), courses, Toast.LENGTH_SHORT).show();
                 Homepage.this.startActivity(intent);

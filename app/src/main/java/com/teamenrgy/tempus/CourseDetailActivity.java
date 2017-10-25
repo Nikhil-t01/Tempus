@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.github.clans.fab.FloatingActionButton;
 
 public class CourseDetailActivity extends AppCompatActivity {
-
+    String course_events;
     @Override
     protected void onResume() {
         super.onResume();
@@ -58,7 +58,7 @@ public class CourseDetailActivity extends AppCompatActivity {
         TextView Monday = findViewById(R.id.mon_time);
         TextView Tuesday = findViewById(R.id.tue_time);
         TextView Wednesday = findViewById(R.id.wed_time);
-        TextView Thursday = findViewById(R.id.thurs_time);
+        final TextView Thursday = findViewById(R.id.thurs_time);
         TextView Friday = findViewById(R.id.fri_time);
         TextView Saturday = findViewById(R.id.sat_time);
         TextView Sunday = findViewById(R.id.sun_time);

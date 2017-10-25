@@ -1,5 +1,6 @@
 package com.teamenrgy.tempus;
 
+
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,9 +12,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class EventAdapter extends ArrayAdapter<Event> {
+public class AllEventsAdapter extends ArrayAdapter<Event> {
     String events, pending_events;
-    public EventAdapter(Activity context, ArrayList<Event> pEvents_list, String events, String pending_events){
+    public AllEventsAdapter(Activity context, ArrayList<Event> pEvents_list, String events, String pending_events){
         super(context, 0, pEvents_list);
         this.events = events;
         this.pending_events = pending_events;
@@ -25,7 +26,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         Event currEvent = getItem(position);
         View listItemView = convertView;
         if(listItemView == null){
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.pending_item, parent, false);
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.event_item, parent, false);
         }
 
         TextView id = listItemView.findViewById(R.id.id);
