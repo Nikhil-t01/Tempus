@@ -90,7 +90,7 @@ public class Homepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setContentView(R.layout.progess_bar);
-                Intent intent = new Intent(Homepage.this, TableBaseActivity.class);
+                Intent intent = new Intent(Homepage.this, TimeTableActivity.class);
                 intent.putExtra("courses", courses);
                 //Toast.makeText(getBaseContext(), courses, Toast.LENGTH_SHORT).show();
                 Homepage.this.startActivity(intent);
@@ -200,7 +200,7 @@ public class Homepage extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(getBaseContext(), "LogOut kro", Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(getBaseContext(), "LogOut kro", Toast.LENGTH_SHORT).show();
         //super.onBackPressed();
     }
 }

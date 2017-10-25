@@ -9,12 +9,13 @@
         android:id="@+id/list"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="450dp"
         tools:context="com.teamenrgy.tempus.PendingEventsFragment"
         android:padding="20dp"
         />
 
     <Button
+        android:text="Done"
         android:id="@+id/done"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

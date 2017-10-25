@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,6 +29,8 @@ public class PendingEventsFragment extends Fragment {
         View v = inflater.inflate(R.layout.activity_pending_events, container, false);
 
         EventsActivity eventsActivity = (EventsActivity) getActivity();
+
+        //Toast.makeText(getContext(), "Pending", Toast.LENGTH_SHORT).show();
 
         String events = ((TextView) getActivity().findViewById(R.id.events)).getText().toString();
         String pending_events = ((TextView) getActivity().findViewById(R.id.pending_events)).getText().toString();
@@ -66,7 +67,7 @@ public class PendingEventsFragment extends Fragment {
                 Response.Listener<String> Listener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getContext(), "Updated in Database!", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), "Updated in Database!", Toast.LENGTH_SHORT).show();
 
                         ((TextView) getActivity().findViewById(R.id.pending_events)).setText(pending_events_temp);
                         ((TextView) getActivity().findViewById(R.id.events)).setText(ostl.events);
@@ -90,8 +91,11 @@ public class PendingEventsFragment extends Fragment {
         if (visible && isResumed())
         {
             onCreateView(inflater, container, savedInstanceState);
+            // ((EventsActivity) getActivity()).pager.getAdapter().notifyDataSetChanged(); //
         }
     }
+
+
 
     public static Fragment newInstance() {
 

@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -83,7 +82,7 @@ public class TopicsActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getBaseContext(), response, Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getBaseContext(), response, Toast.LENGTH_SHORT).show();
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             topics_list.add(new Topic(topic_name.getText().toString(), jsonResponse.getString("date"), cat_name, jsonResponse.getInt("id")+"", name));

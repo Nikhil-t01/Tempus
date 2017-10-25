@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,7 +22,7 @@ public class MyEventsFragment extends Fragment {
         this.inflater = inflater;
         this.container = container;
         this.savedInstanceState = savedInstanceState;
-        Toast.makeText(getContext(), "OnCreateView called", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "MyEvents", Toast.LENGTH_SHORT).show();
         View v = inflater.inflate(R.layout.activity_my_events, container, false);
 
         EventsActivity eventsActivity = (EventsActivity) getActivity();
@@ -32,7 +31,7 @@ public class MyEventsFragment extends Fragment {
         events = ((TextView) getActivity().findViewById(R.id.events)).getText().toString();
         pending_events = ((TextView) getActivity().findViewById(R.id.pending_events)).getText().toString();
 
-        Toast.makeText(getContext(), "Events: "+events+" Pending Events: "+pending_events, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "Events: "+events+" Pending Events: "+pending_events, Toast.LENGTH_SHORT).show();
         int len = events.length();
         final ArrayList<Event> events_list = new ArrayList<>();
 

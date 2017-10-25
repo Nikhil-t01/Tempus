@@ -139,7 +139,7 @@ public class ProfileActivity extends AppCompatActivity {
                         dummy.setText(finalcourse);
                         dummy_pEvent.setText(dummy_pEvent.getText().toString() + course_event.substring(4));
                         Toast.makeText(getBaseContext(), "Course Added", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getBaseContext(), "Pending Events: "+dummy_pEvent.getText().toString(), Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(getBaseContext(), "Pending Events: "+dummy_pEvent.getText().toString(), Toast.LENGTH_SHORT).show();
 
                     }
                     else {
@@ -176,6 +176,8 @@ public class ProfileActivity extends AppCompatActivity {
                             String c = current.substring(i-3,i);
                             if(!c.equals(cid)) {
                                 updated = updated + c;
+                            }
+                            else {
                                 removed = true;
                             }
                         }
@@ -215,17 +217,17 @@ public class ProfileActivity extends AppCompatActivity {
                                     final_cur += event_id;
                             }
 
-                            Toast.makeText(getBaseContext(),final_cur,Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getBaseContext(),final_pending,Toast.LENGTH_SHORT).show();
+                    //        Toast.makeText(getBaseContext(),final_cur,Toast.LENGTH_SHORT).show();
+                      //      Toast.makeText(getBaseContext(),final_pending,Toast.LENGTH_SHORT).show();
                             dummy_event.setText(final_cur);
                             dummy_pEvent.setText(final_pending);
                         }
                         else {
-                            Toast.makeText(getBaseContext(), "Are you kidding me?", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "You're not registered for this course", Toast.LENGTH_SHORT).show();
                         }
                         dummy.setText(updated);}
                     else {
-                        Toast.makeText(getBaseContext(), "You're not registered for this course", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "This course doesn't exist", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {

@@ -1,9 +1,8 @@
 package com.teamenrgy.tempus;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 
+import com.alamkanak.weekview.WeekViewEvent;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
@@ -11,18 +10,28 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class TimeTableActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
+public class TimeTableActivity extends TableActivity {
+    String courses;
+    String[][] timings;
+    List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+    int ny, nm ,l;
     @Override
-    protected void onResume() {
-        super.onResume();
+    public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
+        // Populate the week view with some events.
         setContentView(R.layout.activity_time_table);
-
         Intent oldintent = getIntent();
-        String courses = oldintent.getStringExtra("courses");
+        courses = oldintent.getStringExtra("courses");
         // final ArrayList<String> Days = new ArrayList<>();
         String Days = "";
-        int l = courses.length();
+        l = courses.length();
+        final int[] i = {1};
+
+        ny = newYear;
+        nm = newMonth;
 
         Response.Listener<String> Listener = new Response.Listener<String>() {
             @Override
@@ -30,52 +39,59 @@ public class TimeTableActivity extends AppCompatActivity {
 
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
-                    String mons = jsonResponse.getString("mon");
-                    String tues = jsonResponse.getString("tue");
-                    String weds = jsonResponse.getString("wed");
-                    String thus = jsonResponse.getString("thu");
-                    String fris = jsonResponse.getString("fri");
-                    String sats = jsonResponse.getString("sat");
-                    String suns = jsonResponse.getString("sun");
+                    timings = new String[8][7];
+                    timings[i[0]][0] = jsonResponse.getString("mon");
+                    timings[i[0]][1] = jsonResponse.getString("tue");
+                    timings[i[0]][2] = jsonResponse.getString("wed");
+                    timings[i[0]][3] = jsonResponse.getString("thu");
+                    timings[i[0]][4] = jsonResponse.getString("fri");
+                    timings[i[0]][5] = jsonResponse.getString("sat");
+                    timings[i[0]][6] = jsonResponse.getString("sun");
                     String names = jsonResponse.getString("name");
                     String venues = jsonResponse.getString("venue");
-                    TextView mon = (TextView) findViewById(R.id.mon);
-                    TextView tue = (TextView) findViewById(R.id.tue);
-                    TextView wed = (TextView) findViewById(R.id.wed);
-                    TextView thu = (TextView) findViewById(R.id.thu);
-                    TextView fri = (TextView) findViewById(R.id.fri);
-                    TextView sat = (TextView) findViewById(R.id.sat);
-                    TextView sun = (TextView) findViewById(R.id.sun);
-
-                    mon.setText(mon.getText().toString() + names + " " + mons + " " + venues + "\n");
-                    tue.setText(tue.getText().toString() + names + " " + tues + " " + venues + "\n");
-                    wed.setText(wed.getText().toString() + names + " " + weds + " " + venues + "\n");
-                    thu.setText(thu.getText().toString() + names + " " + thus + " " + venues + "\n");
-                    fri.setText(fri.getText().toString() + names + " " + fris + " " + venues + "\n");
-                    sat.setText(sat.getText().toString() + names + " " + sats + " " + venues + "\n");
-                    sun.setText(sun.getText().toString() + names + " " + suns + " " + venues + "\n");
-
-
-
 
                     /*DayAdapter dayAdapter = new DayAdapter(getParent(), Days);
                     ListView days = (ListView) findViewById(R.id.days);
                     days.setAdapter(dayAdapter);*/
 
-                   // Toast.makeText(getBaseContext(), "day", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getBaseContext(), ""+id, Toast.LENGTH_SHORT).show();
+                        for(int m=0;m<7;m++) {
+                            if (timings[i[0]][m].equals("-"))
+                                continue;
+                          //  Toast.makeText(getBaseContext(), ""+m, Toast.LENGTH_SHORT).show();
+                            Calendar startTime = Calendar.getInstance();
+                            Calendar endTime = (Calendar) startTime.clone();
+                            startTime.set(Calendar.DAY_OF_WEEK, m+1);
+                            startTime.set(Calendar.HOUR_OF_DAY, 3);
+                            startTime.set(Calendar.MINUTE, 0);
+                            startTime.set(Calendar.MONTH, nm - 1);
+                            startTime.set(Calendar.YEAR, ny);
+                            WeekViewEvent event = new WeekViewEvent(1, getEventTitle(startTime), startTime, endTime);
+                            endTime.add(Calendar.HOUR, 1);
+                            endTime.set(Calendar.MONTH, nm - 1);
+                            event.setColor(getResources().getColor(R.color.event_color_01));
+                            events.add(event);
+                        }
+                    i[0] = i[0] +1;
+                    if(i[0]==l/3-1)return;
+
+                    // Toast.makeText(getBaseContext(), "day", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         };
 
-        for(int i = 6; i<=l; i=i+3) {
-            String course = courses.substring(i-3, i);
+
+        for(int idx = 6; idx<=l; idx=idx+3) {
+            String course = courses.substring(idx-3, idx);
+
             CourseDetailRequest courseRequest = new CourseDetailRequest(course,  Listener);
             RequestQueue queue = Volley.newRequestQueue(TimeTableActivity.this);
             queue.add(courseRequest);
         }
-
-        // Toast.makeText(getBaseContext(), "adapt", Toast.LENGTH_LONG).show();
+    return events;
     }
+
+
 }

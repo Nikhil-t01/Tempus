@@ -202,18 +202,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:background="#AF000000"
-        android:layout_marginTop="20dp"
-        android:padding="5dp"
-        android:textSize="20dp"
-        android:textColor="#FFFFFF"
-        android:gravity="center"
-        android:id="@+id/course_events_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/days"
-        android:text="Upcoming Events"/>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:fab="http://schemas.android.com/apk/res-auto"

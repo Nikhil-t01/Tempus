@@ -7,7 +7,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -71,7 +70,7 @@ public class ForumActivity extends AppCompatActivity {
                 Response.Listener<String> Listener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getBaseContext(), response, Toast.LENGTH_SHORT).show();
+                   //     Toast.makeText(getBaseContext(), response, Toast.LENGTH_SHORT).show();
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             messages_list.add(new Message(etMessage.getText().toString(), name, jsonResponse.getString("date")));

@@ -148,16 +148,16 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
                             id = "0"+id;
                         events += id;
                         event_id = id;
-                        Toast.makeText(getBaseContext(), "Success", Toast.LENGTH_SHORT).show();
+                 //       Toast.makeText(getBaseContext(), "Success", Toast.LENGTH_SHORT).show();
                         if(cat_name.length() == 5){
-                            Toast.makeText(getBaseContext(), "Course: "+cat_name, Toast.LENGTH_SHORT).show();
+                   //         Toast.makeText(getBaseContext(), "Course: "+cat_name, Toast.LENGTH_SHORT).show();
                             Response.Listener<String> courseEventListener = new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
                                     try {
                                         JSONObject jsonResponse = new JSONObject(response);
-                                        Toast.makeText(getBaseContext(), event_id, Toast.LENGTH_SHORT).show();
-                                        Toast.makeText(getBaseContext(), jsonResponse.getString("cid"), Toast.LENGTH_SHORT).show();
+                     //                   Toast.makeText(getBaseContext(), event_id, Toast.LENGTH_SHORT).show();
+                       //                 Toast.makeText(getBaseContext(), jsonResponse.getString("cid"), Toast.LENGTH_SHORT).show();
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -169,7 +169,7 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
                             queue.add(courseEventRequest);
                         }
                         else{
-                            Toast.makeText(getBaseContext(), "Dept: "+cat_name, Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(getBaseContext(), "Dept: "+cat_name, Toast.LENGTH_SHORT).show();
                             Response.Listener<String> deptEventListener = new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
@@ -181,7 +181,7 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
                             queue.add(deptEventRequest);
                         }
                     } catch (JSONException e) {
-                        Toast.makeText(getBaseContext(), "Fail", Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(getBaseContext(), "Fail", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
                 }

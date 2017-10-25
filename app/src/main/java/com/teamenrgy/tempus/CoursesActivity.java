@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -55,11 +54,11 @@ public class CoursesActivity extends AppCompatActivity {
                 final String course_name = course_code_name.second;
                 final String course_code = course_code_name.first;
 
-                Toast.makeText(getBaseContext(), "working!", Toast.LENGTH_LONG).show();
+   //             Toast.makeText(getBaseContext(), "working!", Toast.LENGTH_LONG).show();
                 Response.Listener<String> Listener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getBaseContext(), response, Toast.LENGTH_SHORT).show();
+     //                   Toast.makeText(getBaseContext(), response, Toast.LENGTH_SHORT).show();
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             String mon = jsonResponse.getString("mon");
