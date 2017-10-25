@@ -16,7 +16,7 @@ public class EventsActivity extends FragmentActivity {
 
     String courses, name, events, pending_events, ldap, dept;
     public HashMap<Integer, Event> event_details;
-
+    TextView events_tv, pending_events_tv;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +38,8 @@ public class EventsActivity extends FragmentActivity {
 
         TextView courses_tv = findViewById(R.id.courses);
         TextView name_tv = findViewById(R.id.name);
-        TextView events_tv = findViewById(R.id.events);
-        TextView pending_events_tv = findViewById(R.id.pending_events);
+        events_tv = findViewById(R.id.events);
+        pending_events_tv = findViewById(R.id.pending_events);
         TextView ldap_tv = findViewById(R.id.ldap);
 
         courses_tv.setText(courses);
@@ -73,6 +73,8 @@ public class EventsActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        events = events_tv.getText().toString();
+        pending_events = pending_events_tv.getText().toString();
         Intent intent = new Intent(this, Homepage.class);
         intent.putExtra("name", name);
         intent.putExtra("ldap", ldap);
