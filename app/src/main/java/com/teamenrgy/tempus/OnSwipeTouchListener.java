@@ -38,6 +38,7 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
     public void onSwipeLeft(int pos) {
         //Do what you want after swiping right to left
         // Accept
+
         events += eventAdapter.getItem(pos).getId();
         eventAdapter.remove(eventAdapter.getItem(pos));
     }
