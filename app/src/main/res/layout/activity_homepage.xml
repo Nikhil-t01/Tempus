@@ -262,6 +262,29 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:background="#424242"
+                    android:id="@+id/log_out"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LogOut"
+                    android:textSize="20sp"
+                    android:paddingTop="10sp"
+                    android:paddingBottom="10sp"
+                    android:paddingLeft="20sp"
+                    android:textColor="#F5F5F5"
+                    />
+
+            </LinearLayout>
+
             <TextView
                 android:visibility="gone"
                 android:id="@+id/dummydept"

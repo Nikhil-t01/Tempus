@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -181,7 +182,21 @@ public class Homepage extends AppCompatActivity {
                 queue.add(getEventsDetail);
             }
         });
+
+        Button logout = findViewById(R.id.log_out);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Homepage.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
+
+
+
 
     @Override
     public void onBackPressed() {
