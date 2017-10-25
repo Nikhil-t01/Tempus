@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
@@ -15,6 +16,10 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Homepage extends AppCompatActivity {
 
@@ -135,14 +140,54 @@ public class Homepage extends AppCompatActivity {
         events_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setContentView(R.layout.progess_bar);
-                Intent intent = new Intent(Homepage.this, EventsActivity.class);
-                intent.putExtra("name", name);
-                intent.putExtra("ldap", ldap);
-                intent.putExtra("events", events);
-                intent.putExtra("pending_events", pending_events);
-                Homepage.this.startActivity(intent);
+                // setContentView(R.layout.progess_bar);
+
+                final HashMap event_details = new HashMap<Integer, Event>();
+
+                Response.Listener<String> eventsDetailListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Toast.makeText(getBaseContext(), response, Toast.LENGTH_LONG).show();
+                        Log.v("anc", response);
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            int total = jsonResponse.getInt("total");
+                            for(int i = 0; i < total; i++) {
+                                event_details.put(jsonResponse.getInt("id"+i),
+                                        new Event(jsonResponse.getInt("id"+i),
+                                                jsonResponse.getString("desc"+i),
+                                                jsonResponse.getString("start"+i),
+                                                jsonResponse.getString("end"+i),
+                                                jsonResponse.getString("user"+i),
+                                                jsonResponse.getString("cat"+i)));
+                            }
+                            Intent intent = new Intent(Homepage.this, EventsActivity.class);
+                            intent.putExtra("name", name);
+                            intent.putExtra("ldap", ldap);
+                            intent.putExtra("events", events);
+                            intent.putExtra("pending_events", pending_events);
+                            intent.putExtra("dept", dept);
+                            intent.putExtra("courses", courses);
+                            intent.putExtra("event_details", event_details);
+                            Homepage.this.startActivity(intent);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                GetEventsDetailRequest getEventsDetail =
+                        new GetEventsDetailRequest(eventsDetailListener);
+                RequestQueue queue = Volley.newRequestQueue(Homepage.this);
+                queue.add(getEventsDetail);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getBaseContext(), "LogOut kro", Toast.LENGTH_SHORT).show();
+        //super.onBackPressed();
     }
 }

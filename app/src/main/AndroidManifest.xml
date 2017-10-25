@@ -39,10 +39,7 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ForumActivity" />
         <activity android:name=".TopicsActivity" />
-        <activity android:name=".AddEventActivity" />
         <activity android:name=".EventsActivity" />
-        <activity android:name=".MyEventsActivity" />
-        <activity android:name=".PendingEventsActivity"></activity>
     </application>
 
 </manifest>

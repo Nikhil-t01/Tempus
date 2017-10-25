@@ -11,10 +11,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by nikhil-t on 24/10/17.
- */
-
 public class EventAdapter extends ArrayAdapter<Event> {
     String events, pending_events;
     public EventAdapter(Activity context, ArrayList<Event> pEvents_list, String events, String pending_events){
@@ -31,9 +27,22 @@ public class EventAdapter extends ArrayAdapter<Event> {
         if(listItemView == null){
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.event_item, parent, false);
         }
-        final TextView event_id = listItemView.findViewById(R.id.event_id);
+
+        TextView id = listItemView.findViewById(R.id.id);
+        TextView desc = listItemView.findViewById(R.id.desc);
+        TextView start = listItemView.findViewById(R.id.start);
+        TextView end = listItemView.findViewById(R.id.end);
+        TextView user = listItemView.findViewById(R.id.user);
+        TextView cat = listItemView.findViewById(R.id.cat);
+
         assert currEvent != null;
-        event_id.setText(currEvent.getId());
+        id.setText(currEvent.getId());
+        desc.setText(currEvent.description);
+        start.setText(currEvent.start_time);
+        end.setText(currEvent.end_time);
+        user.setText(currEvent.user);
+        cat.setText(currEvent.category);
+
         return listItemView;
     }
 }

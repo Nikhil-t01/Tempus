@@ -6,16 +6,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
 
-/**
- * Created by nikhil-t on 24/10/17.
- */
-
 public class OnSwipeTouchListener implements View.OnTouchListener {
 
-    ListView list;
+    private ListView list;
     private GestureDetector gestureDetector;
     private Context context;
-    EventAdapter eventAdapter;
+    private EventAdapter eventAdapter;
     String events;
 
     public OnSwipeTouchListener(Context ctx, ListView list, EventAdapter eventAdapter, String events) {
@@ -26,24 +22,24 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
         this.events = events;
     }
 
-    public OnSwipeTouchListener() {
-        super();
-    }
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+
+        v.getParent().requestDisallowInterceptTouchEvent(true);
         return gestureDetector.onTouchEvent(event);
     }
 
     public void onSwipeRight(int pos) {
         //Do what you want after swiping left to right
+        // Discard
         eventAdapter.remove(eventAdapter.getItem(pos));
     }
 
     public void onSwipeLeft(int pos) {
-        events += eventAdapter.getItem(pos).id;
-        eventAdapter.remove(eventAdapter.getItem(pos));
         //Do what you want after swiping right to left
+        // Accept
+        events += eventAdapter.getItem(pos).getId();
+        eventAdapter.remove(eventAdapter.getItem(pos));
     }
 
     private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
