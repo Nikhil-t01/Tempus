@@ -1,20 +1,10 @@
 package com.teamenrgy.tempus;
 
-/**
- * Created by nikhil-t on 12/10/17.
- */
-
-import com.android.volley.toolbox.StringRequest;
-
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
 import java.util.HashMap;
 import java.util.Map;
-
-/**
- * Created by Rajat Rathi on 10-10-2017.
- */
 
 
 public class DeptIDRequest extends StringRequest {

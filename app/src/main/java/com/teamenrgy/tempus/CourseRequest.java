@@ -1,13 +1,7 @@
 package com.teamenrgy.tempus;
 
-/**
- * Created by nikhil-t on 12/10/17.
- */
 
-import android.util.Log;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 

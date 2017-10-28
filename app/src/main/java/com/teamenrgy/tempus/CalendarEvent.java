@@ -12,9 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by nikhil-t on 25/10/17.
- */
 
 public class CalendarEvent {
     @Expose

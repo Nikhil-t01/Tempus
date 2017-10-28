@@ -13,9 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-/**
- * Created by Rajat Rathi on 11-10-2017.
- */
+
 public class TopicAdapter extends ArrayAdapter<Topic> {
 
     public TopicAdapter(Activity context, ArrayList<Topic> topics)

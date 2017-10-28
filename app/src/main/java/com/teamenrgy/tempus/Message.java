@@ -1,8 +1,5 @@
 package com.teamenrgy.tempus;
 
-/**
- * Created by nikhil-t on 12/10/17.
- */
 
 public class Message {
     private String message;

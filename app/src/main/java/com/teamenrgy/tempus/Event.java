@@ -2,9 +2,7 @@ package com.teamenrgy.tempus;
 
 import java.io.Serializable;
 
-/**
- * Created by nikhil-t on 24/10/17.
- */
+
 
 public class Event implements Serializable {
     int id;

@@ -16,12 +16,11 @@ import java.io.InputStreamReader;
 import java.util.Random;
 
 /**
+ * \class
  * This is the starting page of the app.
  * Displays an animation of a motivational quote
  * On clicking button, user goes to Login page.
  */
-
-
 public class MainActivity1 extends AppCompatActivity {
 
     @Override
@@ -30,12 +29,12 @@ public class MainActivity1 extends AppCompatActivity {
         setTheme(R.style.AllTheme);
         setContentView(R.layout.activity_main1);
 
-        //Fonts of quote and title
+        ///Fonts of quote and title
         Typeface font_title = Typeface.createFromAsset(getAssets(), "fonts/FFF_Tusj.ttf");
         Typeface font_quote = Typeface.createFromAsset(getAssets(), "fonts/GrandHotel-Regular.ttf");
 
         TypeWriter title = (TypeWriter) findViewById(R.id.title);
-        title.setText("Tempus");    //App name
+        title.setText("Tempus");    ///App name
 
         title.setTypeface(font_title);
 
@@ -49,14 +48,12 @@ public class MainActivity1 extends AppCompatActivity {
 
 
         Random random = new Random();
-        int rand = random.nextInt(24); //Change this according to number of quotes available.
+        int rand = random.nextInt(24); ///Change this according to number of quotes available.
         int cnt = 0;
         InputStream in = getResources().openRawResource(R.raw.quotes);
 
-        /**
-         * Buffered Reader for selecting random quote from "quotes.txt" and displaying it.
-         */
 
+         /// Buffered Reader for selecting random quote from "quotes.txt" and displaying it.
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         try {
             String ln = br.readLine();
@@ -65,7 +62,7 @@ public class MainActivity1 extends AppCompatActivity {
                 cnt = cnt + 1;
             }
 
-            quote.setCharacterDelay(25); // Time delay between appearance of 2 characters.
+            quote.setCharacterDelay(25); /// Time delay between appearance of 2 characters.
             quote.animateText(ln);
             br.close();
             in.close();
@@ -77,7 +74,6 @@ public class MainActivity1 extends AppCompatActivity {
          * OnClickListener for "Get Started!" button
          * @return Takes the user to Login page
          */
-
         gtstart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

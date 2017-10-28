@@ -176,7 +176,7 @@
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="Quizzes"
+                        android:text="Events"
                         android:background="#2E7D32"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"

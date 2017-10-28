@@ -6,9 +6,6 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Rajat Rathi on 11-10-2017.
- */
 
 public class AddTopicRequest extends StringRequest {
     private static final String COURSEDETAIL_REQUEST_URL = "https://flyingtempus.000webhostapp.com/AddTopic.php";

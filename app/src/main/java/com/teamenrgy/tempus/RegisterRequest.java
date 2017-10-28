@@ -1,8 +1,6 @@
 package com.teamenrgy.tempus;
 
-/**
- * Created by nikhil-t on 12/10/17.
- */
+
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
@@ -10,25 +8,23 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * @class
+ * Class used to send request to database for registering user in database
+ */
 public class RegisterRequest extends StringRequest {
-    /**
-     * URL for registrating user in database
-     */
-    private static final String REGISTER_REQUEST_URL = "https://flyingtempus.000webhostapp.com/Register.php";
+    private static final String REGISTER_REQUEST_URL = "https://flyingtempus.000webhostapp.com/Register.php"; //URL for php file which registers user in database
     private Map<String, String> params;
 
     /**
-     * Posting parameters for registration to PHP file on web server for registration
-     * @param name
-     * @param ldap
-     * @param courses
-     * @param password
-     * Password typed in login activity
-     * @param passwordC
-     * Password typed in register activity
-     * @param dept
-     * @param listener
+     * Constructor for this class
+     * @param name Name of the user
+     * @param ldap LDAP ID of the user
+     * @param courses Courses for which user is registered
+     * @param password Password typed in login activity
+     * @param passwordC Password typed in register activity
+     * @param dept Department of user
+     * @param listener Response Listener
      */
     public RegisterRequest(String name, String ldap, String courses, String password, String passwordC, String dept,String pending_events, Response.Listener<String> listener) {
         super(Method.POST, REGISTER_REQUEST_URL, listener, null);
@@ -42,6 +38,10 @@ public class RegisterRequest extends StringRequest {
         params.put("pending_events", pending_events);
     }
 
+    /**
+     * Function to get the parameters to be posted to php
+     * @return
+     */
     @Override
     public Map<String, String> getParams() {
         return params;

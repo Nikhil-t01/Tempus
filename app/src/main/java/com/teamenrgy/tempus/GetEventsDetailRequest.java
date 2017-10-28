@@ -6,9 +6,7 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by nikhil-t on 3/10/17.
- */
+
 
 public class GetEventsDetailRequest extends StringRequest{
     private static final String EVENTS_DETAIL_REQUEST_URL = "https://flyingtempus.000webhostapp.com/GetEventsDetails.php";

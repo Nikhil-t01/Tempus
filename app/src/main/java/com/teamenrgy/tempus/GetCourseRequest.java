@@ -6,9 +6,7 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by nikhil-t on 3/10/17.
- */
+
 
 public class GetCourseRequest extends StringRequest{
     private static final String COURSEDETAIL_REQUEST_URL = "https://flyingtempus.000webhostapp.com/GetCourses.php";

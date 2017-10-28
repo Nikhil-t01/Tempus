@@ -7,9 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Rajat Rathi on 24-10-2017.
+ * @Class
  */
-
 public class AddEventRequest extends StringRequest {
     private static final String COURSEDETAIL_REQUEST_URL = "https://flyingtempus.000webhostapp.com/AddEvent.php";
     private Map<String, String> params;

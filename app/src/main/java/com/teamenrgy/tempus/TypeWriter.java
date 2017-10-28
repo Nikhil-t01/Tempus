@@ -1,13 +1,11 @@
 package com.teamenrgy.tempus;
-
 /**
- * Created by nikhil-t on 16/10/17.
+ * Created by Team eNRGy
  */
 
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 public class TypeWriter extends android.support.v7.widget.AppCompatTextView {
 

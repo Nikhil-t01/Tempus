@@ -1,11 +1,10 @@
 package com.teamenrgy.tempus;
 
-import android.app.Activity;
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,12 +17,6 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.teamenrgy.tempus.CourseRequest;
-import com.teamenrgy.tempus.DeptIDRequest;
-import com.teamenrgy.tempus.Homepage;
-import com.teamenrgy.tempus.LoginActivity;
-import com.teamenrgy.tempus.R;
-import com.teamenrgy.tempus.RegisterRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;

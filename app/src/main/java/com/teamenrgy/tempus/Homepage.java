@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,7 +40,7 @@ public class Homepage extends AppCompatActivity {
         final String courses = intent.getStringExtra("courses");
         final String events = intent.getStringExtra("events");
         final String pending_events = intent.getStringExtra("pending_events");
-        Toast.makeText(getBaseContext(), "Events: "+events + " Pending Events:" + pending_events, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getBaseContext(), "Events: "+events + " Pending Events:" + pending_events, Toast.LENGTH_LONG).show();
         final TextView dummy = (TextView) findViewById(R.id.dummydept);
 
         Response.Listener<String> deptListener = new Response.Listener<String>() {

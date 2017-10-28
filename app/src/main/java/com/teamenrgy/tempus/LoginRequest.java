@@ -7,22 +7,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by nikhil-t on 12/10/17.
+ * @class
+ * Class used to send request to database for checking Login credentials of user
  */
-
 public class LoginRequest extends StringRequest {
-    /**
-     * URL for PHP code of getting user from database
-     */
-    private static final String LOGIN_REQUEST_URL = "https://flyingtempus.000webhostapp.com/Login.php";
+    private static final String LOGIN_REQUEST_URL = "https://flyingtempus.000webhostapp.com/Login.php"; //URL for php file which checks login credentials from database
     private Map<String, String> params;
 
     /**
-     * Sends LDAP and password to database to check for user
-     * @param ldap
-     * @param password
-     * @param listener
-     * It is a response listener from login activity
+     * Constructor for this class
+     * @param ldap LDAP ID of user
+     * @param password Password of user
+     * @param listener Response listener
      */
     public LoginRequest(String ldap, String password, Response.Listener<String> listener) {
         super(Method.POST, LOGIN_REQUEST_URL, listener, null);
@@ -31,6 +27,10 @@ public class LoginRequest extends StringRequest {
         params.put("password", password);
     }
 
+    /**
+     * Function to get the parameters to be posted to php
+     * @return
+     */
     @Override
     public Map<String, String> getParams() {
         return params;

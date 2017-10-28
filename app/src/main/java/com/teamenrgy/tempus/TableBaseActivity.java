@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * Created by nikhil-t on 25/10/17.
- */
+
 
 public class TableBaseActivity extends TableActivity {
     @Override

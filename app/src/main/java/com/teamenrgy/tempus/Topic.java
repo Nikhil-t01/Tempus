@@ -1,11 +1,5 @@
 package com.teamenrgy.tempus;
 
-import static android.R.id.message;
-
-/**
- * Created by nikhil_t on 11-10-2017.
- */
-
 public class Topic {
     private String subject;
     private String date;
