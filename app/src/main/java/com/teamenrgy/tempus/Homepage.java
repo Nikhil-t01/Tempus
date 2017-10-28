@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,6 +22,9 @@ import java.util.HashMap;
 
 public class Homepage extends AppCompatActivity {
 
+    int l;
+    String[][] timings =  new String[8][7];
+    Bundle b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,10 +93,53 @@ public class Homepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setContentView(R.layout.progess_bar);
-                Intent intent = new Intent(Homepage.this, TimeTableActivity.class);
+                final Intent intent = new Intent(Homepage.this, TestActivity.class);
                 intent.putExtra("courses", courses);
-                //Toast.makeText(getBaseContext(), courses, Toast.LENGTH_SHORT).show();
-                Homepage.this.startActivity(intent);
+
+                l = courses.length();
+                final int[] i = {1};
+                b = new Bundle();
+                Response.Listener<String> listener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonResponse = null;
+                        try {
+                            jsonResponse = new JSONObject(response);
+                            Toast.makeText(getBaseContext(), response, Toast.LENGTH_SHORT).show();
+                            timings[i[0]][0] = jsonResponse.getString("mon");
+                            timings[i[0]][1] = jsonResponse.getString("tue");
+                            timings[i[0]][2] = jsonResponse.getString("wed");
+                            timings[i[0]][3] = jsonResponse.getString("thu");
+                            timings[i[0]][4] = jsonResponse.getString("fri");
+                            timings[i[0]][5] = jsonResponse.getString("sat");
+                            timings[i[0]][6] = jsonResponse.getString("sun");
+                            b.putStringArray("timings"+i[0], timings[i[0]]);
+
+                          //  Toast.makeText(getBaseContext(), timings[i[0]][1], Toast.LENGTH_SHORT).show();
+
+                            //intent.putExtra("timings"+i[0], timings[i[0]]);
+                            String names = jsonResponse.getString("name");
+                            String venues = jsonResponse.getString("venue");
+
+                            i[0] = i[0] +1;
+                            if(i[0]==l/3){
+                                intent.putExtras(b);
+                                Toast.makeText(getBaseContext(), "activity starting", Toast.LENGTH_SHORT).show();
+                                Homepage.this.startActivity(intent);
+                            }
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                for(int idx = 6; idx<=l; idx=idx+3) {
+                    String course = courses.substring(idx-3, idx);
+                    CourseDetailRequest courseRequest = new CourseDetailRequest(course,  listener);
+                    RequestQueue queue = Volley.newRequestQueue(Homepage.this);
+                    queue.add(courseRequest);
+                }
             }
         });
 

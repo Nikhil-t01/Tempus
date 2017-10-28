@@ -12,7 +12,7 @@ public class GetTopicRequest extends StringRequest {
     private Map<String, String> params;
 
     /**
-     * 
+     *
      * @param cat
      * @param listener
      */

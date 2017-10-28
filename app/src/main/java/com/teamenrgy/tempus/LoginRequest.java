@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @class
+ * @author Team eNRGy
  * Class used to send request to database for checking Login credentials of user
  */
 public class LoginRequest extends StringRequest {
@@ -29,7 +29,7 @@ public class LoginRequest extends StringRequest {
 
     /**
      * Function to get the parameters to be posted to php
-     * @return
+     * @return parameters to be posted to php
      */
     @Override
     public Map<String, String> getParams() {

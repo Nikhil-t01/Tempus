@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @class
+ * @author Team eNRGy
  * Class used to send request to database for registering user in database
  */
 public class RegisterRequest extends StringRequest {
@@ -40,7 +40,7 @@ public class RegisterRequest extends StringRequest {
 
     /**
      * Function to get the parameters to be posted to php
-     * @return
+     * @return parameters to be posted to php
      */
     @Override
     public Map<String, String> getParams() {

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * @author Team eNRGy
  * Class used to send request to database for updating courses of user
  */
 public class AddcourseRequest extends StringRequest {
@@ -34,7 +34,7 @@ public class AddcourseRequest extends StringRequest {
 
     /**
      * Function to get the parameters to be posted to php
-     * @return
+     * @return parameters to be posted to php
      */
     @Override
     public Map<String, String> getParams() {
