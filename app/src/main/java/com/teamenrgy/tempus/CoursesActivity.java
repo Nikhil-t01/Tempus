@@ -18,8 +18,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Class used to display a list of all courses for which the user has registered
+ */
 public class CoursesActivity extends AppCompatActivity {
-
+    /**
+     * Function called everytime this activity is opened.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -44,6 +49,9 @@ public class CoursesActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(wordAdapter);
 
+        /**
+         * Listener which gets the position of the item in the adapter which was clicked by the user, and starts the 'CourseDetailActivity' for the course that the item denotes
+         */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -100,6 +108,5 @@ public class CoursesActivity extends AppCompatActivity {
                 queue.add(courseRequest);
             }
         });
-
     }
 }
