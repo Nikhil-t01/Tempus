@@ -4,18 +4,22 @@ import android.support.v4.util.Pair;
 
 
 /**
- * @class This is the Course class which contains the index of the Course as it is in the online Database.
+ * This is the Course class which contains the index of the Course as it is in the online Database.
  */
 public class Course {
     private String code;
 
     public Course(String code){this.code = code;}
 
+    /**
+     * Getter for code of the course
+     * @return code of the course
+     */
     public String getCourse(){return code;}
 
     /**
-     * @brief Used to get the course name and Course code of a given course.
-     * @return Pair of type String, String which contain Course Codee and Course Name respectively.
+     * Used to get the course name and Course code of a given course.
+     * @return Pair of type String, String which contain Course Code and Course Name respectively.
      */
     public Pair<String,String> getCourseName() {
         switch (code) {

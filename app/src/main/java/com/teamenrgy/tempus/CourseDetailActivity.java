@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
 
+/**
+ * Class for representing detailed entities of a course, such as course timings (schedule) and discussion forum.
+ */
 public class CourseDetailActivity extends AppCompatActivity {
     String course_events;
     @Override

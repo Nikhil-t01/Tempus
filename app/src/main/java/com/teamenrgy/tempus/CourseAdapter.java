@@ -12,14 +12,28 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-
+/**
+ * Class used to create a course specific adapter to display all courses for which the user has registered
+ */
 public class CourseAdapter extends ArrayAdapter<Course> {
 
+    /**
+     * Constructor for this class
+     * @param context Context the adapter will refer to
+     * @param courses_list ArrayList of courses undertaken by the user
+     */
     public CourseAdapter(Activity context, ArrayList<Course> courses_list)
     {
         super(context, 0, courses_list);
     }
 
+    /**
+     * Function for providing data to the layout file for representation
+     * @param position Indicates position at which user has clicked
+     * @param convertView
+     * @param parent Parent ViewGroup for the current view
+     * @return List item view with required data
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

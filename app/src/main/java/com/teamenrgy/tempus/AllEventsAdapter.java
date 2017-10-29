@@ -12,14 +12,32 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * Class used to create an event specific adapter to display pending events of a user
+ */
 public class AllEventsAdapter extends ArrayAdapter<Event> {
     String events, pending_events;
+
+    /**
+     * Constructor for this adapter
+     * @param context Context the adapter will refer to
+     * @param pEvents_list List of pending events for the adapter to be initialised with
+     * @param events Encoded string of events of a user
+     * @param pending_events Encoded string of pending events of a user
+     */
     public AllEventsAdapter(Activity context, ArrayList<Event> pEvents_list, String events, String pending_events){
         super(context, 0, pEvents_list);
         this.events = events;
         this.pending_events = pending_events;
     }
 
+    /**
+     * Function for providing data to the layout file for representation
+     * @param position Indicates position at which user has clicked
+     * @param convertView
+     * @param parent Parent ViewGroup for the current view
+     * @return List item view with required data
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull final ViewGroup parent) {

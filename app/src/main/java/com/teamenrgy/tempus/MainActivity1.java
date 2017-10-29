@@ -16,7 +16,6 @@ import java.io.InputStreamReader;
 import java.util.Random;
 
 /**
- * @author Team eNRGy
  * This is the starting page of the app.
  * Displays an animation of a motivational quote
  * On clicking button, user goes to Login page.

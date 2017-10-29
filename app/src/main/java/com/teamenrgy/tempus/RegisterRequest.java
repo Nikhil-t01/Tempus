@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Team eNRGy
  * Class used to send request to database for registering user in database
  */
 public class RegisterRequest extends StringRequest {
@@ -24,7 +23,7 @@ public class RegisterRequest extends StringRequest {
      * @param password Password typed in login activity
      * @param passwordC Password typed in register activity
      * @param dept Department of user
-     * @param listener Response Listener
+     * @param listener Response Listener for the request
      */
     public RegisterRequest(String name, String ldap, String courses, String password, String passwordC, String dept,String pending_events, Response.Listener<String> listener) {
         super(Method.POST, REGISTER_REQUEST_URL, listener, null);

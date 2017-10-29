@@ -7,11 +7,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Class
+ * Class used to send request to database for updating events
  */
 public class AddEventRequest extends StringRequest {
-    private static final String COURSEDETAIL_REQUEST_URL = "https://flyingtempus.000webhostapp.com/AddEvent.php";
+    private static final String COURSEDETAIL_REQUEST_URL = "https://flyingtempus.000webhostapp.com/AddEvent.php"; //URL for php file which adds event in database
     private Map<String, String> params;
+
+    /**
+     * Constructor for this class
+     * @param category Category under which event is to be added
+     * @param name Name of user adding the event
+     * @param stime Start time of event
+     * @param etime End time of event
+     * @param listener Response listener for the request
+     */
 
     public AddEventRequest(String category, String description, String name, String stime, String etime ,Response.Listener<String> listener) {
         super(Method.POST, COURSEDETAIL_REQUEST_URL, listener, null);
@@ -23,9 +32,12 @@ public class AddEventRequest extends StringRequest {
         params.put("etime", etime);
     }
 
+    /**
+     * Function to get the parameters to be posted to php
+     * @return parameters to be posted to php
+     */
     @Override
     public Map<String, String> getParams() {
-        //Log.v("RegisterRequest", "getParams() called");
         return params;
     }
 }

@@ -23,8 +23,7 @@ import java.util.HashMap;
 public class Homepage extends AppCompatActivity {
 
     int l;
-    String[][] timings =  new String[8][7];
-    Bundle b;
+    String[] timings =  new String[7];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,12 +92,10 @@ public class Homepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setContentView(R.layout.progess_bar);
-                final Intent intent = new Intent(Homepage.this, TestActivity.class);
-                intent.putExtra("courses", courses);
-
                 l = courses.length();
-                final int[] i = {1};
-                b = new Bundle();
+                final int[] i = {0};
+                final HashMap all_timings = new HashMap<Integer, ClassTimings>();
+
                 Response.Listener<String> listener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -106,24 +103,22 @@ public class Homepage extends AppCompatActivity {
                         try {
                             jsonResponse = new JSONObject(response);
                             Toast.makeText(getBaseContext(), response, Toast.LENGTH_SHORT).show();
-                            timings[i[0]][0] = jsonResponse.getString("mon");
-                            timings[i[0]][1] = jsonResponse.getString("tue");
-                            timings[i[0]][2] = jsonResponse.getString("wed");
-                            timings[i[0]][3] = jsonResponse.getString("thu");
-                            timings[i[0]][4] = jsonResponse.getString("fri");
-                            timings[i[0]][5] = jsonResponse.getString("sat");
-                            timings[i[0]][6] = jsonResponse.getString("sun");
-                            b.putStringArray("timings"+i[0], timings[i[0]]);
-
-                          //  Toast.makeText(getBaseContext(), timings[i[0]][1], Toast.LENGTH_SHORT).show();
-
-                            //intent.putExtra("timings"+i[0], timings[i[0]]);
-                            String names = jsonResponse.getString("name");
-                            String venues = jsonResponse.getString("venue");
-
+                            all_timings.put(i[0],new ClassTimings(
+                                    jsonResponse.getString("mon"),
+                                    jsonResponse.getString("tue"),
+                                    jsonResponse.getString("wed"),
+                                    jsonResponse.getString("thu"),
+                                    jsonResponse.getString("fri"),
+                                    jsonResponse.getString("sat"),
+                                    jsonResponse.getString("sun"),
+                                    jsonResponse.getString("name"),
+                                    jsonResponse.getString("venue")));
                             i[0] = i[0] +1;
-                            if(i[0]==l/3){
-                                intent.putExtras(b);
+                            if(i[0]==l/3-1){
+                                //intent.putExtras(b);
+                                Intent intent = new Intent(Homepage.this, TestActivity.class);
+                                intent.putExtra("all_timings", all_timings);
+                                intent.putExtra("courses", courses);
                                 Toast.makeText(getBaseContext(), "activity starting", Toast.LENGTH_SHORT).show();
                                 Homepage.this.startActivity(intent);
                             }

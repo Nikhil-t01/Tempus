@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Team eNRGy
  * Class used to send request to database for updating courses of user
  */
 public class AddcourseRequest extends StringRequest {
@@ -20,7 +19,7 @@ public class AddcourseRequest extends StringRequest {
      * @param ldap LDAP ID of user
      * @param events Events accepted by the user
      * @param pending_events Pending events for the user
-     * @param listener Response listener
+     * @param listener Response listener for the request
      */
     public AddcourseRequest(String courseid, String ldap, String events, String pending_events,  Response.Listener<String> listener) {
         super(Method.POST, COURSEDETAIL_REQUEST_URL, listener, null);

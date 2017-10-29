@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Team eNRGy
  * Class used to send request to database for checking Login credentials of user
  */
 public class LoginRequest extends StringRequest {
@@ -18,7 +17,7 @@ public class LoginRequest extends StringRequest {
      * Constructor for this class
      * @param ldap LDAP ID of user
      * @param password Password of user
-     * @param listener Response listener
+     * @param listener Response listener for the request
      */
     public LoginRequest(String ldap, String password, Response.Listener<String> listener) {
         super(Method.POST, LOGIN_REQUEST_URL, listener, null);
