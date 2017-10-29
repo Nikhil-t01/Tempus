@@ -16,7 +16,7 @@ public class CourseEventRequest extends StringRequest {
     /**
      * Constructor for this class
      * @param category Courseid or department id of the event
-     * @param event_id Eventid of the event
+     * @param event_id ID of the event
      * @param listener Response listener for the request
      */
     public CourseEventRequest(String category, String event_id ,Response.Listener<String> listener) {

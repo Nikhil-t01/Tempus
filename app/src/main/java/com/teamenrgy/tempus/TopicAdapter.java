@@ -13,14 +13,27 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-
+/**
+ * Class used to create a topic specific adapter to display all topics of a course or department
+ */
 public class TopicAdapter extends ArrayAdapter<Topic> {
-
+    /**
+     * Constructor for this class
+     * @param context Context the adapter will refer to
+     * @param topics  ArrayList of topics of a course or department
+     */
     public TopicAdapter(Activity context, ArrayList<Topic> topics)
     {
         super(context, 0, topics);
     }
 
+    /**
+     * Function for providing data to the layout file for representation
+     * @param position Indicates position at which user has clicked
+     * @param convertView current view to be added to the listview
+     * @param parent Parent ViewGroup for the current view
+     * @return  List item view with required data
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

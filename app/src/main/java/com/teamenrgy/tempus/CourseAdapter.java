@@ -30,7 +30,7 @@ public class CourseAdapter extends ArrayAdapter<Course> {
     /**
      * Function for providing data to the layout file for representation
      * @param position Indicates position at which user has clicked
-     * @param convertView
+     * @param convertView current view to be added to the listview
      * @param parent Parent ViewGroup for the current view
      * @return List item view with required data
      */

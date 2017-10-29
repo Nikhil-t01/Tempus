@@ -12,14 +12,27 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-
+/**
+ * Class used to create a post specific adapter to display all posts of a topic
+ */
 public class ForumAdapter extends ArrayAdapter<Message> {
-
+    /**
+     * Constructor for this class
+     * @param context Context the adapter will refer to
+     * @param messages ArrayList of posts of that topic
+     */
     public ForumAdapter(Activity context, ArrayList<Message> messages)
     {
         super(context, 0, messages);
     }
 
+    /**
+     *  Function for providing data to the layout file for representation
+     * @param position Indicates position at which user has clicked
+     * @param convertView current view to be added to the listview
+     * @param parent  Parent ViewGroup for the current view
+     * @return List item view with required data
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

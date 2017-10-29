@@ -17,6 +17,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+/**
+ * This is a base activity which contains week view and all the codes necessary to initialize the
+ * week view.
+ * Created by Raquib-ul-Alam Kanak on 1/3/2014.
+ * Website: http://alamkanak.github.io
+ */
 public abstract class TableActivity extends AppCompatActivity implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener {
     private static final int TYPE_DAY_VIEW = 1;
     private static final int TYPE_THREE_DAY_VIEW = 2;
@@ -51,13 +57,24 @@ public abstract class TableActivity extends AppCompatActivity implements WeekVie
         setupDateTimeInterpreter(false);
     }
 
-
+    /**
+     * here menu is being inflated with mainl.xml
+     * @param menu to display contents of menu in menubar
+     * @return (boolean) true (informing that menu is present)
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
+    /**
+     * Handle action bar item clicks here. The action bar will
+     * automatically handle clicks on the Home/Up button, so long
+     * as you specify a parent activity in AndroidManifest.xml.
+     * @param item
+     * @return (boolean)
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -115,6 +132,11 @@ public abstract class TableActivity extends AppCompatActivity implements WeekVie
      */
     private void setupDateTimeInterpreter(final boolean shortDate) {
         mWeekView.setDateTimeInterpreter(new DateTimeInterpreter() {
+            /**
+             * Overriding date interpreter
+             * @param date Date
+             * @return overrided format of date (upper case)
+             */
             @Override
             public String interpretDate(Calendar date) {
                 SimpleDateFormat weekdayNameFormat = new SimpleDateFormat("EEE", Locale.getDefault());
@@ -129,6 +151,11 @@ public abstract class TableActivity extends AppCompatActivity implements WeekVie
                 return weekday.toUpperCase() + format.format(date.getTime());
             }
 
+            /**
+             * 24 hour format to 12 hour
+             * @param hour Hour in 24 hr format
+             * @return hour in 12 hr format
+             */
             @Override
             public String interpretTime(int hour) {
                 return hour > 11 ? (hour - 12) + " PM" : (hour == 0 ? "12 AM" : hour + " AM");
@@ -136,25 +163,47 @@ public abstract class TableActivity extends AppCompatActivity implements WeekVie
         });
     }
 
+    /**
+     * Title of event is set
+     * @param time Time at which event is there
+     * @return Title of event
+     */
     protected String getEventTitle(Calendar time) {
         return String.format("Event of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH));
     }
 
+    /**
+     * On clicking on an event shows a message
+     * @param event event to be clicked
+     * @param eventRect
+     */
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
         Toast.makeText(this, "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
     }
-
+    /**
+     * On  long clicking on an event shows a message
+     * @param event event to be clicked
+     * @param eventRect
+     */
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
         Toast.makeText(this, "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * On clicking on empty event shows a message
+     * @param time place on calendar at which user clicked
+     */
     @Override
     public void onEmptyViewLongPress(Calendar time) {
         Toast.makeText(this, "Empty view long pressed: " + getEventTitle(time), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Getter of week view
+     * @return week view
+     */
     public WeekView getWeekView() {
         return mWeekView;
     }

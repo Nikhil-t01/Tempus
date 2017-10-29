@@ -22,6 +22,10 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
+/**
+ *This is the third fragment, which contains things to add events
+ * This uses values from the parent, i.e., EventsActivity.java to update
+ */
 public class AddEventFragment extends Fragment {
 
     Button btnDatePicker, btnStartTimePicker, btnEndTimePicker, btnAddEvent;
@@ -34,6 +38,14 @@ public class AddEventFragment extends Fragment {
     ViewGroup container;
     Bundle savedInstanceState;
 
+    /**
+     * This method is called when the this Fragment gets created.
+     * All things in it are updated by getting values from the parent
+     * @param inflater to fill the fragment with activity_add_event.xml
+     * @param container to get the view
+     * @param savedInstanceState Saved state of the instance
+     * @return updated view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.inflater = inflater;
@@ -42,10 +54,8 @@ public class AddEventFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.activity_add_event, container, false);
 
-//        Toast.makeText(getContext(), "AddEvents", Toast.LENGTH_SHORT).show();
 
         events = ((TextView) getActivity().findViewById(R.id.pending_events)).getText().toString();
-        //pending_events = ((TextView) getActivity().findViewById(R.id.pending_events)).getText().toString();
         name = ((TextView) getActivity().findViewById(R.id.name)).getText().toString();
 
         btnDatePicker = (Button) v.findViewById(R.id.btn_date);
@@ -58,6 +68,10 @@ public class AddEventFragment extends Fragment {
         final EditText Category = (EditText) v.findViewById(R.id.category);
         final EditText Description = (EditText) v.findViewById(R.id.description);
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Date Picker using calendar like thing
+             * @param view view to be clicked for date
+             */
             @Override
             public void onClick(View view) {
                 final Calendar c = Calendar.getInstance();
@@ -77,7 +91,6 @@ public class AddEventFragment extends Fragment {
                                     dd = "0" + dd;
                                 if(monthOfYear<9)
                                     mm = "0" + mm;
-                                //Toast.makeText(getContext(),year + "-" + mm + "-" + dd + " ", Toast.LENGTH_SHORT).show();
                                 txtDate.setText(year + "-" + mm + "-" + dd + " ");
                             }
                         }, mYear, mMonth, mDay);
@@ -86,16 +99,24 @@ public class AddEventFragment extends Fragment {
         });
 
         btnStartTimePicker.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Time Picker for start time using clock like thing
+             * @param view view to be clicked for  start time
+             */
             @Override
             public void onClick(View view) {
                 final Calendar c = Calendar.getInstance();
                 mHour = c.get(Calendar.HOUR_OF_DAY);
                 mMinute = c.get(Calendar.MINUTE);
 
-                // Launch Time Picker Dialog
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
                         new TimePickerDialog.OnTimeSetListener() {
-
+                            /**
+                             *  Over riding time
+                             * @param view view from which getting
+                             * @param hourOfDay hour
+                             * @param minute minute
+                             */
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
@@ -111,16 +132,24 @@ public class AddEventFragment extends Fragment {
             }
         });
         btnEndTimePicker.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Time Picker for end time using clock like thing
+             * @param view view to be clicked for  end time
+             */
             @Override
             public void onClick(View view) {
                 final Calendar c = Calendar.getInstance();
                 mHour = c.get(Calendar.HOUR_OF_DAY);
                 mMinute = c.get(Calendar.MINUTE);
 
-                // Launch Time Picker Dialog
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
                         new TimePickerDialog.OnTimeSetListener() {
-
+                            /**
+                             *  Over riding time
+                             * @param view view from which getting
+                             * @param hourOfDay hour
+                             * @param minute minute
+                             */
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
@@ -137,13 +166,16 @@ public class AddEventFragment extends Fragment {
         });
 
         btnAddEvent.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Add event click button
+             * @param view view
+             */
             @Override
             public void onClick(View view) {
                 final String cat_name = Category.getText().toString();
                 Response.Listener<String> addEventListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             String id = jsonResponse.getString("id");
@@ -152,25 +184,17 @@ public class AddEventFragment extends Fragment {
                                 id = "0"+id;
                             events += id;
                             ((TextView) getActivity().findViewById(R.id.pending_events)).setText(events);
-                            /*eventsActivity.event_details.put(Integer.parseInt(id), new Event(
-                                    Integer.parseInt(id),
-                                    Description.getText().toString(),
-                                    txtStartTime.getText().toString(),
-                                    txtEndTime.getText().toString(),
-                                    eventsActivity.name,
-                                    Category.getText().toString()
-                            ));*/
+
                             event_id = id;
-                            //Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+
                             if(cat_name.length() == 5){
-                                //Toast.makeText(getContext(), "Course: "+cat_name, Toast.LENGTH_SHORT).show();
+
                                 Response.Listener<String> courseEventListener = new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
                                         try {
                                             JSONObject jsonResponse = new JSONObject(response);
-                                            // Toast.makeText(getContext(), event_id, Toast.LENGTH_SHORT).show();
-                                            //Toast.makeText(getContext(), jsonResponse.getString("cid"), Toast.LENGTH_SHORT).show();
+
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
@@ -182,7 +206,7 @@ public class AddEventFragment extends Fragment {
                                 queue.add(courseEventRequest);
                             }
                             else{
-                                //Toast.makeText(getContext(), "Dept: "+cat_name, Toast.LENGTH_SHORT).show();
+
                                 Response.Listener<String> deptEventListener = new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
@@ -193,10 +217,8 @@ public class AddEventFragment extends Fragment {
                                 RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
                                 queue.add(deptEventRequest);
                             }
-                            //eventsActivity.pager.setAdapter(new EventsActivity.MyPagerAdapter(getSupportFragmentManager()));
-//                            eventsActivity.pager.getAdapter().notifyDataSetChanged();
+
                         } catch (JSONException e) {
-                            //Toast.makeText(getContext(), "Fail", Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
                     }
@@ -217,6 +239,10 @@ public class AddEventFragment extends Fragment {
         return v;
     }
 
+    /**
+     * Setting fragment to visible or invisible
+     * @param visible (boolean)
+     */
     @Override
     public void setUserVisibleHint(boolean visible)
     {
@@ -227,6 +253,10 @@ public class AddEventFragment extends Fragment {
         }
     }
 
+    /**
+     * Returninig updated instance of a fragment
+     * @return instance of a fragment
+     */
     public static Fragment newInstance() {
 
         AddEventFragment f = new AddEventFragment();

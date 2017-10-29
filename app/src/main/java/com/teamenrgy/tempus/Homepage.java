@@ -116,7 +116,7 @@ public class Homepage extends AppCompatActivity {
                             i[0] = i[0] +1;
                             if(i[0]==l/3-1){
                                 //intent.putExtras(b);
-                                Intent intent = new Intent(Homepage.this, TestActivity.class);
+                                Intent intent = new Intent(Homepage.this, TimeTableActivity.class);
                                 intent.putExtra("all_timings", all_timings);
                                 intent.putExtra("courses", courses);
                                 Toast.makeText(getBaseContext(), "activity starting", Toast.LENGTH_SHORT).show();
