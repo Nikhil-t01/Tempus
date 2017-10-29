@@ -38,6 +38,7 @@ public class AddEventFragment extends Fragment {
     ViewGroup container;
     Bundle savedInstanceState;
 
+
     /**
      * This method is called when the this Fragment gets created.
      * All things in it are updated by getting values from the parent
@@ -53,7 +54,6 @@ public class AddEventFragment extends Fragment {
         this.savedInstanceState = savedInstanceState;
 
         View v = inflater.inflate(R.layout.activity_add_event, container, false);
-
 
         events = ((TextView) getActivity().findViewById(R.id.pending_events)).getText().toString();
         name = ((TextView) getActivity().findViewById(R.id.name)).getText().toString();
@@ -72,6 +72,7 @@ public class AddEventFragment extends Fragment {
              * Date Picker using calendar like thing
              * @param view view to be clicked for date
              */
+
             @Override
             public void onClick(View view) {
                 final Calendar c = Calendar.getInstance();
@@ -109,6 +110,7 @@ public class AddEventFragment extends Fragment {
                 mHour = c.get(Calendar.HOUR_OF_DAY);
                 mMinute = c.get(Calendar.MINUTE);
 
+                // Launch Time Picker Dialog
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
                         new TimePickerDialog.OnTimeSetListener() {
                             /**
@@ -142,6 +144,7 @@ public class AddEventFragment extends Fragment {
                 mHour = c.get(Calendar.HOUR_OF_DAY);
                 mMinute = c.get(Calendar.MINUTE);
 
+                // Launch Time Picker Dialog
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
                         new TimePickerDialog.OnTimeSetListener() {
                             /**
@@ -166,14 +169,14 @@ public class AddEventFragment extends Fragment {
         });
 
         btnAddEvent.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Add event click button
-             * @param view view
-             */
             @Override
             public void onClick(View view) {
                 final String cat_name = Category.getText().toString();
                 Response.Listener<String> addEventListener = new Response.Listener<String>() {
+                    /**
+                     * Add event click button
+                     * @param view view
+                     */
                     @Override
                     public void onResponse(String response) {
                         try {
@@ -184,17 +187,13 @@ public class AddEventFragment extends Fragment {
                                 id = "0"+id;
                             events += id;
                             ((TextView) getActivity().findViewById(R.id.pending_events)).setText(events);
-
                             event_id = id;
-
                             if(cat_name.length() == 5){
-
                                 Response.Listener<String> courseEventListener = new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
                                         try {
                                             JSONObject jsonResponse = new JSONObject(response);
-
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
@@ -206,18 +205,18 @@ public class AddEventFragment extends Fragment {
                                 queue.add(courseEventRequest);
                             }
                             else{
-
+                                //Toast.makeText(getContext(), "Dept: "+cat_name, Toast.LENGTH_SHORT).show();
                                 Response.Listener<String> deptEventListener = new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
                                     }
                                 };
 
-                                DeptEventRequest deptEventRequest = new DeptEventRequest(cat_name, event_id, deptEventListener);
+                                EventsActivity eventsActivity = (EventsActivity) getActivity();
+                                DeptEventRequest deptEventRequest = new DeptEventRequest(eventsActivity.dept, event_id, deptEventListener);
                                 RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
                                 queue.add(deptEventRequest);
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
