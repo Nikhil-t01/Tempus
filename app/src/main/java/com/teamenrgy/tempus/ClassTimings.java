@@ -32,5 +32,4 @@ public class ClassTimings implements Serializable {
         this.name = name;
         this.venue = venue;
     }
-
 }
