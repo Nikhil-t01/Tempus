@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * Class used to get events of a particular department
+ * 
  */
 public class DeptEventRequest extends StringRequest {
     private static final String COURSEDETAIL_REQUEST_URL = "https://flyingtempus.000webhostapp.com/DeptEvent.php";
