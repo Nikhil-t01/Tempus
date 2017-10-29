@@ -21,13 +21,26 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Class used to implement the registration procedure.
+ * If the user enters incorrect confirmation password, they are directed back to the login page.
+ * There is provision to add courses and select department at the time of registration itself
+ * After successful registration, user is directed to homepage and will only have to login with proper credentials to get access to his profile.
+ */
 public class RegisterActivity extends AppCompatActivity {
 
+    /**
+     * Function called when activity is created for the first time
+     * @param savedInstanceState Instance of bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        /**
+         * Spinner for implementing dropdown of departments
+         */
         final TextView spinner_dept_dummy = (TextView) findViewById(R.id.dummydept2);
         Spinner Departments = (Spinner) findViewById(R.id.Depts);
         final String[] Depts = { "Change Department", "Computer Science and Engineering",
@@ -42,6 +55,9 @@ public class RegisterActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, Depts);
         Departments.setAdapter(adapter);
 
+        /**
+         * Listener to detect which department was selected from the dropdown list
+         */
         Departments.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -54,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+
         Intent intent = getIntent();
         final String ldap = intent.getStringExtra("ldap");
         final String Password = intent.getStringExtra("password");
@@ -65,6 +82,9 @@ public class RegisterActivity extends AppCompatActivity {
         final Button bRegister = (Button) findViewById(R.id.bRegister);
         final Button bCourse = (Button) findViewById(R.id.course_button);
 
+        /**
+         * OnClickListener to confirm addition of course
+         */
         bCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,6 +139,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * OnClickListener to confirm registration of user
+         */
         bRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {

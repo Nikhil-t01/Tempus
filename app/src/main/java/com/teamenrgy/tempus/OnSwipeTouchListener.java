@@ -6,14 +6,26 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
 
+/**
+ * Class used to enable 'swiping' to accept or discard an event from pending events of the user. Left to Right swiping discards an event, while swiping an event Right to Left adds it to the users' list of accepted events.
+ */
 public class OnSwipeTouchListener implements View.OnTouchListener {
-
     private ListView list;
+    /**
+     * An instance of the GestureDetector class to detect touches made by the user
+     */
     private GestureDetector gestureDetector;
     private Context context;
     private EventAdapter eventAdapter;
     String events;
 
+    /**
+     * Constructor for this class
+     * @param ctx Context for this class
+     * @param list ListView containing a list of events of the user
+     * @param eventAdapter The EventAdapter for the list of events of the user
+     * @param events Encoded list of event id's of accepted events of the user
+     */
     public OnSwipeTouchListener(Context ctx, ListView list, EventAdapter eventAdapter, String events) {
         gestureDetector = new GestureDetector(ctx, new GestureListener());
         context = ctx;
@@ -29,20 +41,28 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
         return gestureDetector.onTouchEvent(event);
     }
 
+    /**
+     * Function which discards a pending event when the user right-swipes the list item denoting the event.
+     * Event simply removed from pending events
+     * @param pos Position of the event in the adapter which needs to be discarded
+     */
     public void onSwipeRight(int pos) {
-        //Do what you want after swiping left to right
-        // Discard
         eventAdapter.remove(eventAdapter.getItem(pos));
     }
 
+    /**
+     * Function which accepts a pending event when the user left-swipes the list item denoting the event.
+     * Event removed from pending events and added into accepted events
+     * @param pos Position of the event in the adapter which needs to be accepted
+     */
     public void onSwipeLeft(int pos) {
-        //Do what you want after swiping right to left
-        // Accept
-
         events += eventAdapter.getItem(pos).getId();
         eventAdapter.remove(eventAdapter.getItem(pos));
     }
 
+    /**
+     * Class for interpreting the gestures made by the user, when interacting with the interface.
+     */
     private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
         private static final int SWIPE_THRESHOLD = 100;

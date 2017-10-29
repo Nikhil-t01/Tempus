@@ -18,8 +18,15 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Class used to represent user profile.
+ * Consists of provisions for adding and removing courses (registering and de-registering from courses), as well as for changing department.
+ */
 public class ProfileActivity extends AppCompatActivity {
 
+    /**
+     * Function called everytime this activity is opened.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -46,6 +53,9 @@ public class ProfileActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, Depts);
         Departments.setAdapter(adapter);
 
+        /**
+         * Listener to detect which department was selected from the dropdown list
+         */
         Departments.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -85,6 +95,9 @@ public class ProfileActivity extends AppCompatActivity {
             }
         };
 
+        /**
+         * Listener which waits for confirmation of changes made by user in his personal profile in this activity
+         */
         Done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +120,6 @@ public class ProfileActivity extends AppCompatActivity {
         Button Del = (Button) findViewById(R.id.del_button);
         final EditText AddC = (EditText) findViewById(R.id.etAdd);
         final EditText DelC = (EditText) findViewById(R.id.etDel);
-
 
         final Response.Listener<String> Listener = new Response.Listener<String>() {
             @Override

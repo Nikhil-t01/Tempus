@@ -19,8 +19,17 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Class used for representing list of topics in the discussion forum.
+ * Each course and department has a discussion forum which consists of a list of topics, which is show in this activity.
+ * Clicking on any topic redirects the user to the ForumActivity for the corresponding topic.
+ * It also has provision to create a new topic
+ */
 public class TopicsActivity extends AppCompatActivity {
 
+    /**
+     * Function called everytime this activity is opened.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -43,6 +52,9 @@ public class TopicsActivity extends AppCompatActivity {
         title.setTypeface(title_font);
 
 
+        /**
+         * Gets response from database via php and initialises adapter to contain all topics currently under a particular category
+         */
         Response.Listener<String> deflistener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -61,6 +73,9 @@ public class TopicsActivity extends AppCompatActivity {
             }
         };
 
+        /**
+         * Clicking on a topic opens a ForumActivity for that particular topic
+         */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -75,6 +90,9 @@ public class TopicsActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Provision for creating a new topic
+         */
         start_topic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

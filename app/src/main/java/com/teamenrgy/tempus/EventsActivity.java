@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
+/**
+ * Class used as the main fragment for implementing tabbed activity with swipeable tabs to view the users' accepted and pending events, as well as for adding events for a particular category
+ */
 public class EventsActivity extends FragmentActivity {
-
     String courses, name, events, pending_events, ldap, dept;
     public HashMap<Integer, Event> event_details;
     TextView events_tv, pending_events_tv;
@@ -49,6 +51,9 @@ public class EventsActivity extends FragmentActivity {
         ldap_tv.setText(ldap);
     }
 
+    /**
+     * Class used to send data to all fragments: MyEventsFragment, PendingEventsFragment,
+     */
     private class MyPagerAdapter extends FragmentPagerAdapter {
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -78,6 +83,9 @@ public class EventsActivity extends FragmentActivity {
         }
     }
 
+    /**
+     * Function Override to avoid misuse of the default back button in android
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();

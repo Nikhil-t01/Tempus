@@ -26,6 +26,9 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity {
 
     public static Toast transitionToast;
+    /**
+     * Function called everytime this activity is opened.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -35,6 +38,9 @@ public class LoginActivity extends AppCompatActivity {
         final EditText etPassword = (EditText) findViewById(R.id.password);
         final Button bSignIn = (Button) findViewById(R.id.sign_in_button);
 
+        /**
+         * Redirects user to LoginActivity or RegisterActivity
+         */
         bSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,10 +113,11 @@ public class LoginActivity extends AppCompatActivity {
                 queue.add(loginRequest);
             }
         });
-
     }
 
-
+    /**
+     * Function Override to avoid misuse of the default back button
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();

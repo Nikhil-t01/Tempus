@@ -20,18 +20,41 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+/**
+ * Class used to represent Homepage. It consists of the following options:
+ *
+ * <ul>
+ *     <li>Profile</li>
+ *     <li>Courses</li>
+ *     <li>Time Table</li>
+ *     <li>Events</li>
+ *     <li>Alarms(Non-functional)</li>
+ *     <li>Department Forum</li>
+ *     <li>LogOut</li>
+ * </ul>
+ *
+ * Clicking on each of the tabs leads to opening a new activity, offered functionalities of which are described in their respective activities
+ */
 public class Homepage extends AppCompatActivity {
 
     int l;
     String[] timings =  new String[7];
+
+    /**
+     * Function called when activity is created for the first time
+     * @param savedInstanceState Instance of bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  LoginActivity.transitionToast.cancel();
+        //  LoginActivity.transitionToast.cancel();
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_homepage);
     }
 
+    /**
+     * Function called everytime this activity is opened.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -46,6 +69,9 @@ public class Homepage extends AppCompatActivity {
         //Toast.makeText(getBaseContext(), "Events: "+events + " Pending Events:" + pending_events, Toast.LENGTH_LONG).show();
         final TextView dummy = (TextView) findViewById(R.id.dummydept);
 
+        /**
+         * Gets department ID of a particular department in the database
+         */
         Response.Listener<String> deptListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -64,7 +90,6 @@ public class Homepage extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(Homepage.this);
         queue.add(deptIDRequest);
 
-
 //        Toast.makeText(getBaseContext(), courses, Toast.LENGTH_SHORT).show();
 
         Typeface font_welcome = Typeface.createFromAsset(getAssets(), "fonts/IndieFlower.ttf");
@@ -73,6 +98,9 @@ public class Homepage extends AppCompatActivity {
         welcomeText.setText("Welcome, " + name + "\n" + dept);
 
         TextView courses_tv = (TextView) findViewById(R.id.courses);
+        /**
+         * Starts CoursesActivity, containing all information about the users courses
+         */
         courses_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,10 +111,12 @@ public class Homepage extends AppCompatActivity {
                 intent.putExtra("name", name);
                 //Toast.makeText(getBaseContext(), courses, Toast.LENGTH_SHORT).show();
                 Homepage.this.startActivity(intent);
-
             }
         });
 
+        /**
+         * Starts TimeTableActivity, which represents the timetable for the courses for which the user has registered.
+         */
         TextView timetable_tv = (TextView) findViewById(R.id.timetable);
         timetable_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +146,7 @@ public class Homepage extends AppCompatActivity {
                             i[0] = i[0] +1;
                             if(i[0]==l/3-1){
                                 //intent.putExtras(b);
-                                Intent intent = new Intent(Homepage.this, TestActivity.class);
+                                Intent intent = new Intent(Homepage.this, TimeTableActivity.class);
                                 intent.putExtra("all_timings", all_timings);
                                 intent.putExtra("courses", courses);
                                 Toast.makeText(getBaseContext(), "activity starting", Toast.LENGTH_SHORT).show();
@@ -138,6 +168,9 @@ public class Homepage extends AppCompatActivity {
             }
         });
 
+        /**
+         * Starts ProfileActivity, where a user can edit his courses and department details
+         */
         TextView profile_tv = (TextView) findViewById(R.id.profile);
         profile_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,6 +188,9 @@ public class Homepage extends AppCompatActivity {
             }
         });
 
+        /**
+         * Opens the discussion forum for the user's department
+         */
         TextView dept_tv = (TextView) findViewById(R.id.deptforum);
         dept_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +213,9 @@ public class Homepage extends AppCompatActivity {
         });
 
         TextView events_tv = (TextView) findViewById(R.id.quizzes);
+        /**
+         * Opens EventsActivity, ehich contains a detailed account of the user's accepted and pending events, along with provisions for adding events.
+         */
         events_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,6 +265,9 @@ public class Homepage extends AppCompatActivity {
 
         Button logout = findViewById(R.id.log_out);
 
+        /**
+         * Logs out the current user
+         */
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -235,13 +277,12 @@ public class Homepage extends AppCompatActivity {
         });
     }
 
-
-
-
-
+    /**
+     * Function Override to avoid misuse of the default back button
+     */
     @Override
     public void onBackPressed() {
-    //    Toast.makeText(getBaseContext(), "LogOut kro", Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(getBaseContext(), "LogOut kro", Toast.LENGTH_SHORT).show();
         //super.onBackPressed();
     }
 }

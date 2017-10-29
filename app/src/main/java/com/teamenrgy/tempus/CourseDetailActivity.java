@@ -9,13 +9,20 @@ import android.widget.TextView;
 import com.github.clans.fab.FloatingActionButton;
 
 /**
- * Class for representing detailed entities of a course, such as course timings (schedule) and discussion forum.
+ * Class created to create a detailed account of entities of a particular course
  */
 public class CourseDetailActivity extends AppCompatActivity {
     String course_events;
+
+    /**
+     * Function called everytime this activity is opened.
+     */
     @Override
     protected void onResume() {
         super.onResume();
+        /**
+         * Setting content view as 'activity_course_detail.xml'
+         */
         setContentView(R.layout.activity_course_detail);
 
         TextView title = (TextView) findViewById(R.id.course_title);
@@ -39,6 +46,9 @@ public class CourseDetailActivity extends AppCompatActivity {
         final String course_name = getIntent().getStringExtra("course_name");
 
         FloatingActionButton openForum = findViewById(R.id.material_design_floating_action_menu_item2);
+        /**
+         * If the forum button is clicked, this OnClickListener generates an intent and starts the Topic Activity.
+         */
         openForum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +85,5 @@ public class CourseDetailActivity extends AppCompatActivity {
         Friday.setText(f);
         Saturday.setText(sa);
         Sunday.setText(su);
-
     }
 }
